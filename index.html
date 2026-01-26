@@ -78,6 +78,162 @@
             --section-padding: clamp(80px, 12vh, 140px);
             --container-max: 1200px;
             
+            /* Animation */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+            --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
+            --duration-fast: 0.2s;
+            --duration-normal: 0.4s;
+            --duration-slow: 0.6s;
+            --duration-slower: 0.8s;
+        }
+        
+        /* =============================================
+           GLOBAL ANIMATIONS
+           ============================================= */
+        
+        /* Fade Up Animation */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Fade In Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Scale In Animation */
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        /* Slide In from Left */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Slide In from Right */
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Float Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Pulse Glow */
+        @keyframes pulseGlow {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(15, 78, 41, 0.2);
+            }
+            50% { 
+                box-shadow: 0 0 40px rgba(15, 78, 41, 0.4);
+            }
+        }
+        
+        /* Reveal Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity var(--duration-slow) var(--ease-out-expo),
+                        transform var(--duration-slow) var(--ease-out-expo);
+        }
+        
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity var(--duration-slow) var(--ease-out-expo),
+                        transform var(--duration-slow) var(--ease-out-expo);
+        }
+        
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity var(--duration-slow) var(--ease-out-expo),
+                        transform var(--duration-slow) var(--ease-out-expo);
+        }
+        
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity var(--duration-slow) var(--ease-out-expo),
+                        transform var(--duration-slow) var(--ease-out-expo);
+        }
+        
+        .reveal-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* Stagger Animation Delays */
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        .stagger-5 { transition-delay: 0.5s; }
+        
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Reduce motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            html {
+                scroll-behavior: auto;
+            }
+        }
             /* Transitions */
             --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
             --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -304,6 +460,36 @@
         .animate-on-scroll.delay-4 { transition-delay: 0.4s; }
         .animate-on-scroll.delay-5 { transition-delay: 0.5s; }
         
+        /* Page load animation */
+        body {
+            opacity: 0;
+            animation: pageLoad 0.6s var(--ease-out-expo) forwards;
+            animation-delay: 0.1s;
+        }
+        
+        @keyframes pageLoad {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Hero initial animation */
+        .hero-card {
+            animation: heroReveal 1s var(--ease-out-expo) forwards;
+            animation-delay: 0.2s;
+            opacity: 0;
+        }
+        
+        @keyframes heroReveal {
+            from { 
+                opacity: 0;
+                transform: translateY(30px) scale(0.98);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
         /* =============================================
            NAVIGATION
            ============================================= */
@@ -347,6 +533,7 @@
         .logo-image {
             height: 32px;
             width: auto;
+            display: block;
             transition: transform 0.3s var(--ease-out-back);
         }
         
@@ -452,6 +639,11 @@
             box-shadow: 0 8px 30px rgba(15, 78, 41, 0.4);
         }
         
+        .btn-primary:active {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(15, 78, 41, 0.3);
+        }
+        
         .btn-secondary {
             background: transparent;
             color: var(--green-deep);
@@ -461,6 +653,10 @@
         .btn-secondary:hover {
             background: var(--green-50);
             transform: translateY(-2px);
+        }
+        
+        .btn-secondary:active {
+            transform: translateY(0);
         }
         
         .btn-white {
@@ -1734,50 +1930,16 @@
             stroke-width: 2;
         }
         
-        /* Mobile Phone Mockup - Hidden on desktop */
+        /* Mobile Phone Mockup - Scale down desktop content */
         .mobile-phone-mockup {
             display: none;
-            margin-top: 40px;
             justify-content: center;
+            margin-top: 40px;
         }
         
-        .mobile-iphone {
-            width: 200px;
-            height: 420px;
-            background: #000;
-            border-radius: 36px;
-            padding: 8px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-        
-        .mobile-iphone-screen {
-            width: 100%;
-            height: 100%;
-            background: var(--green-50);
-            border-radius: 28px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .mobile-iphone-screen img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .mobile-screen-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 20px;
-            background: linear-gradient(to top, rgba(15, 78, 41, 0.9) 0%, transparent 100%);
-        }
-        
-        .mobile-screen-label {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--pure-white);
+        .mobile-phone-wrapper {
+            transform: scale(0.85);
+            transform-origin: top center;
         }
         
         /* RIGHT SIDE - Sticky canvas */
@@ -2979,12 +3141,41 @@
                 display: none;
             }
             
-            /* Show mobile phone mockups */
+            /* Show mobile phone mockups with scaled desktop content */
             .mobile-phone-mockup {
                 display: flex;
+                justify-content: center;
+                margin-top: 32px;
+            }
+            
+            .mobile-phone-wrapper {
+                transform: scale(0.85);
+                transform-origin: top center;
             }
         }
         
+        @media (max-width: 480px) {
+            .about-stripe-text {
+                padding: 40px 16px;
+            }
+            
+            .about-stripe-title {
+                font-size: 24px;
+            }
+            
+            .about-stripe-desc {
+                font-size: 14px;
+            }
+            
+            .about-stripe-cta {
+                font-size: 14px;
+            }
+            
+            .mobile-phone-wrapper {
+                transform: scale(0.72);
+            }
+        }
+
 
         /* =============================================
            PILLARS SECTION - Tabbed Nature Design
@@ -3114,7 +3305,7 @@
         /* Panel Image */
         .panel-image {
             position: relative;
-            min-height: 440px;
+            min-height: 520px;
         }
         
         .panel-image img {
@@ -3191,7 +3382,7 @@
             }
             
             .panel-image {
-                min-height: 240px;
+                min-height: 280px;
             }
             
             .panel-image-overlay {
@@ -3205,11 +3396,13 @@
             .pillars-tabs {
                 padding: 4px;
                 gap: 2px;
+                width: auto;
+                max-width: 100%;
             }
             
             .pillar-tab {
                 padding: 10px 16px;
-                font-size: 14px;
+                font-size: 13px;
             }
             
             .pillar-tab svg {
@@ -3219,32 +3412,69 @@
         }
         
         @media (max-width: 480px) {
+            .pillars-container {
+                padding: 0 16px;
+            }
+            
             .pillars-tabs {
                 flex-wrap: wrap;
-                border-radius: 20px;
-                width: calc(100% - 40px);
+                border-radius: 16px;
+                width: 100%;
+                padding: 4px;
+                gap: 4px;
             }
             
             .pillar-tab {
-                padding: 10px 14px;
-                font-size: 13px;
-                gap: 6px;
-                flex: 1;
+                padding: 10px 12px;
+                font-size: 12px;
+                gap: 4px;
+                flex: 1 1 calc(50% - 4px);
                 justify-content: center;
+                border-radius: 12px;
+                min-width: 0;
             }
             
             .pillar-tab svg {
                 width: 14px;
                 height: 14px;
+                flex-shrink: 0;
+            }
+            
+            .pillar-tab.active {
+                border-radius: 12px;
+            }
+            
+            .panel-image {
+                min-height: 220px;
             }
             
             .panel-text {
-                padding: 24px;
+                padding: 24px 20px;
+            }
+            
+            .panel-text h3 {
+                font-size: 22px;
+            }
+            
+            .panel-text p {
+                font-size: 14px;
+            }
+            
+            .panel-modalities {
+                gap: 6px;
             }
             
             .panel-modalities span {
                 padding: 6px 12px;
-                font-size: 12px;
+                font-size: 11px;
+            }
+            
+            .pillars-footer {
+                margin-top: 32px;
+            }
+            
+            .pillars-footer p {
+                font-size: 13px;
             }
         }
 
@@ -3536,27 +3766,47 @@
                 padding: var(--section-padding) 20px;
             }
             
+            .aaron-card {
+                padding: 40px 24px;
+            }
+            
             .aaron-profile-layout {
                 grid-template-columns: 1fr;
-                gap: 40px;
+                gap: 32px;
             }
             
             .aaron-profile-card {
-                max-width: 340px;
+                max-width: 100%;
                 margin: 0 auto;
+                order: 1;
+            }
+            
+            .aaron-video-container {
+                order: 2;
+                max-width: 100%;
             }
             
             .aaron-avatar {
-                width: 160px;
-                height: 160px;
+                width: 140px;
+                height: 140px;
             }
             
             .aaron-video-player {
                 border-radius: 16px;
             }
             
+            .aaron-video-frame {
+                aspect-ratio: 16/10;
+            }
+            
             .aaron-signup-form {
                 flex-direction: column;
+                gap: 10px;
+            }
+            
+            .aaron-email-input {
+                min-width: auto;
+                width: 100%;
             }
             
             .aaron-submit-btn {
@@ -3565,7 +3815,29 @@
             }
             
             .aaron-gate-overlay {
-                padding: 24px;
+                padding: 20px 16px;
+            }
+            
+            .aaron-gate-icon {
+                width: 52px;
+                height: 52px;
+                margin-bottom: 16px;
+            }
+            
+            .aaron-gate-icon svg {
+                width: 22px;
+                height: 22px;
+            }
+            
+            .aaron-gate-title {
+                font-size: 18px;
+                margin-bottom: 8px;
+            }
+            
+            .aaron-gate-desc {
+                font-size: 13px;
+                margin-bottom: 20px;
+                max-width: 100%;
             }
         }
         
@@ -3575,35 +3847,87 @@
             }
             
             .aaron-card {
-                padding: 32px 24px;
+                padding: 28px 16px;
+                border-radius: 20px;
             }
             
             .aaron-header {
-                margin-bottom: 36px;
+                margin-bottom: 28px;
+            }
+            
+            .aaron-heading {
+                font-size: 26px;
+            }
+            
+            .aaron-subheading {
+                font-size: 14px;
             }
             
             .aaron-avatar {
-                width: 140px;
-                height: 140px;
+                width: 100px;
+                height: 100px;
+                margin-bottom: 16px;
+            }
+            
+            .aaron-name {
+                font-size: 20px;
+            }
+            
+            .aaron-role {
+                font-size: 13px;
+            }
+            
+            .aaron-bio {
+                font-size: 13px;
             }
             
             .aaron-tags {
-                gap: 8px;
+                gap: 6px;
             }
             
             .aaron-tags span {
-                padding: 6px 14px;
-                font-size: 12px;
+                padding: 5px 12px;
+                font-size: 11px;
+            }
+            
+            .aaron-video-frame {
+                aspect-ratio: 4/3;
+            }
+            
+            .aaron-gate-overlay {
+                padding: 16px 12px;
             }
             
             .aaron-gate-icon {
-                width: 52px;
-                height: 52px;
+                width: 44px;
+                height: 44px;
+                margin-bottom: 12px;
             }
             
             .aaron-gate-icon svg {
-                width: 22px;
-                height: 22px;
+                width: 18px;
+                height: 18px;
+            }
+            
+            .aaron-gate-title {
+                font-size: 15px;
+                margin-bottom: 6px;
+            }
+            
+            .aaron-gate-desc {
+                font-size: 11px;
+                margin-bottom: 14px;
+                line-height: 1.4;
+            }
+            
+            .aaron-email-input {
+                padding: 12px 14px;
+                font-size: 14px;
+            }
+            
+            .aaron-submit-btn {
+                padding: 12px 16px;
+                font-size: 13px;
             }
         }
         
@@ -4368,11 +4692,16 @@
         
         @media (max-width: 768px) {
             .nav-right {
-                gap: 16px;
+                gap: 12px;
             }
             
             .nav-link {
                 display: none;
+            }
+            
+            .nav-right .btn {
+                padding: 10px 18px;
+                font-size: 13px;
             }
             
             .hero {
@@ -4565,12 +4894,188 @@
                 max-width: 260px;
             }
             
+            /* Footer mobile optimization */
+            footer {
+                padding: 60px 0 32px;
+            }
+            
+            .footer-cta {
+                padding: 0 20px;
+            }
+            
+            .footer-cta h2 {
+                font-size: 28px;
+            }
+            
+            .footer-cta p {
+                font-size: 14px;
+            }
+            
+            .footer-brand {
+                padding: 0 20px;
+            }
+            
+            .footer-logo {
+                height: 24px;
+            }
+            
+            .footer-tagline {
+                font-size: 14px;
+            }
+            
+            .footer-socials {
+                gap: 16px;
+            }
+            
+            .footer-social {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px 20px;
+                padding: 0 20px;
+            }
+            
+            .footer-links a {
+                font-size: 13px;
+            }
+            
+            .footer-copyright {
+                font-size: 12px;
+                padding: 0 20px;
+            }
+            
+            /* Mission section mobile */
+            .mission-section {
+                padding: 60px 20px;
+            }
+            
+            .mission-content {
+                padding: 0 16px;
+            }
+            
+            .mission-star svg {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .mission-quote {
+                font-size: 22px;
+                margin-bottom: 20px;
+            }
+            
+            .mission-tagline {
+                font-size: 16px;
+            }
+            
             .modal {
                 padding: 32px 24px;
             }
             
             .modal-title {
                 font-size: 26px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            /* Footer 480px */
+            footer {
+                padding: 48px 0 28px;
+            }
+            
+            .footer-cta h2 {
+                font-size: 24px;
+            }
+            
+            .footer-cta p {
+                font-size: 13px;
+                margin-bottom: 24px;
+            }
+            
+            .footer-cta-buttons {
+                gap: 12px;
+            }
+            
+            .footer-cta-buttons .btn-light,
+            .footer-cta-buttons .btn-outline-light {
+                padding: 14px 24px;
+                font-size: 14px;
+            }
+            
+            .footer-divider {
+                margin: 40px 20px;
+            }
+            
+            .footer-star svg {
+                width: 32px;
+                height: 32px;
+            }
+            
+            .footer-logo {
+                height: 22px;
+            }
+            
+            .footer-tagline {
+                font-size: 13px;
+            }
+            
+            .footer-links {
+                gap: 10px 16px;
+            }
+            
+            .footer-links a {
+                font-size: 12px;
+            }
+            
+            .footer-copyright {
+                font-size: 11px;
+            }
+            
+            /* Mission 480px */
+            .mission-section {
+                padding: 48px 16px;
+            }
+            
+            .mission-star svg {
+                width: 36px;
+                height: 36px;
+            }
+            
+            .mission-quote {
+                font-size: 20px;
+                line-height: 1.5;
+            }
+            
+            .mission-tagline {
+                font-size: 15px;
+            }
+            
+            /* Modal 480px */
+            .modal {
+                padding: 28px 20px;
+                margin: 16px;
+                max-width: calc(100% - 32px);
+            }
+            
+            .modal-title {
+                font-size: 22px;
+            }
+            
+            .modal-subtitle {
+                font-size: 13px;
+            }
+            
+            .modal-input {
+                padding: 14px 16px;
+                font-size: 15px;
+            }
+            
+            .modal-submit {
+                padding: 14px;
+                font-size: 14px;
             }
         }
     </style>
@@ -4657,8 +5162,12 @@
     <nav id="nav">
         <div class="container">
             <a href="#" class="logo">
-                <!-- Heelar logo PNG (star + name) -->
-                <img src="assets/images/heelar-logo.png" alt="Heelar" class="logo-image">
+                <!-- Heelar logo SVG (star + name) -->
+                <svg class="logo-image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 303 85" fill="none">
+                    <path d="M59.8 50.4V81.4C59.8 82.5333 59.3667 83.3333 58.5 83.8C57.6333 84.2 56.7667 84.2 55.9 83.8C55.0333 83.3333 54.6 82.5333 54.6 81.4V52.6H15.2V81.4C15.2 82.5333 14.7667 83.3333 13.9 83.8C13.0333 84.2 12.1667 84.2 11.3 83.8C10.4333 83.3333 10 82.5333 10 81.4V50.4V49.6V18.6C10 17.4667 10.4333 16.7 11.3 16.3C12.1667 15.8333 13.0333 15.8333 13.9 16.3C14.7667 16.7 15.2 17.4667 15.2 18.6V47.4H54.6V18.6C54.6 17.4667 55.0333 16.7 55.9 16.3C56.7667 15.8333 57.6333 15.8333 58.5 16.3C59.3667 16.7 59.8 17.4667 59.8 18.6V49.6C59.8 50.1333 59.8 50.4 59.8 50.4ZM110.524 71.4C111.524 70 112.724 69.8 114.124 70.8C115.524 71.8 115.724 73 114.724 74.4C110.191 80.8667 103.891 84.0667 95.8242 84C89.8242 84 84.6576 81.7333 80.3242 77.2C76.0576 72.6 73.8909 67 73.8242 60.4C73.8242 59.8667 73.8242 59.6 73.8242 59.6C73.8909 55.2667 74.9242 51.3 76.9242 47.7C78.9242 44.0333 81.5909 41.1667 84.9242 39.1C88.2576 37.0333 91.8909 36 95.8242 36C101.958 36 107.158 38.4667 111.424 43.4C115.691 48.3333 117.824 54.7333 117.824 62.6H79.2242C79.7576 67.2 81.5909 71.0667 84.7242 74.2C87.8576 77.2667 91.5576 78.8 95.8242 78.8C101.958 78.8667 106.858 76.4 110.524 71.4ZM79.2242 57.4H112.624C112.624 54.8 111.891 52.2667 110.424 49.8C108.958 47.3333 106.891 45.3 104.224 43.7C101.624 42.0333 98.8242 41.2 95.8242 41.2C91.5576 41.2 87.8576 42.7667 84.7242 45.9C81.5909 48.9667 79.7576 52.8 79.2242 57.4ZM162.477 71.4C163.477 70 164.677 69.8 166.077 70.8C167.477 71.8 167.677 73 166.677 74.4C162.144 80.8667 155.844 84.0667 147.777 84C141.777 84 136.611 81.7333 132.277 77.2C128.011 72.6 125.844 67 125.777 60.4C125.777 59.8667 125.777 59.6 125.777 59.6C125.844 55.2667 126.877 51.3 128.877 47.7C130.877 44.0333 133.544 41.1667 136.877 39.1C140.211 37.0333 143.844 36 147.777 36C153.911 36 159.111 38.4667 163.377 43.4C167.644 48.3333 169.777 54.7333 169.777 62.6H131.177C131.711 67.2 133.544 71.0667 136.677 74.2C139.811 77.2667 143.511 78.8 147.777 78.8C153.911 78.8667 158.811 76.4 162.477 71.4ZM131.177 57.4H164.577C164.577 54.8 163.844 52.2667 162.377 49.8C160.911 47.3333 158.844 45.3 156.177 43.7C153.577 42.0333 150.777 41.2 147.777 41.2C143.511 41.2 139.811 42.7667 136.677 45.9C133.544 48.9667 131.711 52.8 131.177 57.4ZM181.73 16C181.73 14.8667 182.164 14.1 183.03 13.7C183.897 13.2333 184.764 13.2333 185.63 13.7C186.497 14.1 186.93 14.8667 186.93 16V81.4C186.93 82.5333 186.497 83.3333 185.63 83.8C184.764 84.2 183.897 84.2 183.03 83.8C182.164 83.3333 181.73 82.5333 181.73 81.4V16ZM197.066 60C197.066 53.2667 199.2 47.6 203.466 43C207.8 38.3333 213 36 219.066 36C222.333 36 225.433 36.7667 228.366 38.3C231.3 39.7667 233.8 41.8333 235.866 44.5V38.6C235.866 38.0667 236 37.6 236.266 37.2C236.533 36.7333 236.833 36.4333 237.166 36.3C237.566 36.1 238 36 238.466 36C238.933 36 239.333 36.1 239.666 36.3C240.066 36.4333 240.4 36.7333 240.666 37.2C240.933 37.6 241.066 38.0667 241.066 38.6V60V81.4C241.066 82.5333 240.633 83.3333 239.766 83.8C238.9 84.2 238.033 84.2 237.166 83.8C236.3 83.3333 235.866 82.5333 235.866 81.4V75.5C233.8 78.1667 231.3 80.2667 228.366 81.8C225.433 83.2667 222.333 84 219.066 84C213 84 207.8 81.7 203.466 77.1C199.2 72.4333 197.066 66.7333 197.066 60ZM202.266 60C202.266 65.2 203.9 69.6333 207.166 73.3C210.433 76.9667 214.4 78.8 219.066 78.8C222.133 78.8 224.966 77.9667 227.566 76.3C230.166 74.5667 232.2 72.2667 233.666 69.4C235.133 66.5333 235.866 63.4 235.866 60C235.866 54.8 234.233 50.3667 230.966 46.7C227.7 43.0333 223.733 41.2 219.066 41.2C214.4 41.2 210.433 43.0333 207.166 46.7C203.9 50.3667 202.266 54.8 202.266 60ZM262.223 43.3C266.29 38.4333 271.957 36 279.223 36C280.023 36 280.657 36.2667 281.123 36.8C281.59 37.3333 281.823 37.9333 281.823 38.6C281.823 39.2667 281.59 39.8667 281.123 40.4C280.657 40.9333 280.023 41.2 279.223 41.2C275.89 41.2 272.957 41.9 270.423 43.3C267.89 44.7 265.89 46.8 264.423 49.6C262.957 52.4 262.223 55.7 262.223 59.5V60V81.4C262.223 82.5333 261.79 83.3333 260.923 83.8C260.057 84.2 259.19 84.2 258.323 83.8C257.457 83.3333 257.023 82.5333 257.023 81.4V60V59.8C257.023 59.6667 257.023 59.5667 257.023 59.5V38.6C257.023 38.0667 257.157 37.6 257.423 37.2C257.69 36.7333 257.99 36.4333 258.323 36.3C258.723 36.1 259.157 36 259.623 36C260.09 36 260.49 36.1 260.823 36.3C261.223 36.4333 261.557 36.7333 261.823 37.2C262.09 37.6 262.223 38.0667 262.223 38.6V43.3Z" fill="#0f4e29"/>
+                    <path d="M292.609 13.2524C292.609 13.2524 293.694 18.4462 296.027 20.5666C298.033 22.3895 302.421 23.2671 302.421 23.2671C302.421 23.2671 297.959 23.9844 295.948 25.8087C293.711 27.8366 292.731 32.838 292.731 32.838C292.731 32.838 292.11 28.7354 290.507 26.8016C288.443 24.3124 283 23.3068 283 23.3068C283 23.3068 286.828 22.8028 288.72 21.4006C289.955 20.4848 290.574 19.795 291.341 18.4618C292.384 16.6466 292.609 13.2524 292.609 13.2524Z" fill="#0f4e29"/>
+                    <path d="M292.839 18.0837C292.839 18.0837 293.398 20.7356 294.599 21.8182C295.632 22.7489 297.892 23.197 297.892 23.197C297.892 23.197 295.594 23.5633 294.558 24.4947C293.407 25.5301 292.902 28.0837 292.902 28.0837C292.902 28.0837 292.583 25.9891 291.757 25.0017C290.694 23.7307 287.892 23.2173 287.892 23.2173C287.892 23.2173 289.863 22.96 290.837 22.244C291.473 21.7764 291.792 21.4243 292.186 20.7435C292.724 19.8167 292.839 18.0837 292.839 18.0837Z" fill="white"/>
+                </svg>
             </a>
             <div class="nav-right">
                 <a href="#healers" class="nav-link">For Healers</a>
@@ -4851,7 +5360,7 @@
          TRUST STRIP
          ========================================== -->
     <section class="trust-strip">
-        <div class="trust-card">
+        <div class="trust-card reveal">
             <div class="trust-content">
                 <div class="trust-item">
                     <span class="trust-value">200+</span>
@@ -4894,13 +5403,85 @@
                     Get early access
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
-                <!-- Mobile Phone Mockup -->
+                <!-- Mobile Phone Mockup - Exact copy of desktop -->
                 <div class="mobile-phone-mockup">
-                    <div class="mobile-iphone">
-                        <div class="mobile-iphone-screen">
-                            <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=260&h=500&fit=crop" alt="Practitioner">
-                            <div class="mobile-screen-overlay">
-                                <span class="mobile-screen-label">Practitioner Profile</span>
+                    <div class="mobile-phone-wrapper">
+                        <div class="stripe-iphone-frame">
+                            <div class="stripe-iphone-screen dark-screen">
+                                <div class="stripe-dynamic-island"></div>
+                                <div class="stripe-status-bar light">
+                                    <span class="time">9:41</span>
+                                    <div class="status-right">
+                                        <div class="signal-bars light"><span></span><span></span><span></span><span></span></div>
+                                        <div class="wifi-icon light"></div>
+                                        <div class="battery-icon-sm light"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Practitioner Header Row -->
+                                <div class="prac-header-row">
+                                    <svg class="back-arrow" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+                                    <div class="prac-header-center">
+                                        <strong>Clarisse Meyer</strong>
+                                        <span>New York, USA</span>
+                                        <span class="prac-mods">EFT • Soul Healing • Light Language</span>
+                                    </div>
+                                    <div style="width: 20px;"></div>
+                                </div>
+                                
+                                <!-- Large Cover Photo with overlays -->
+                                <div class="prac-cover-area">
+                                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=320&fit=crop" alt="">
+                                    
+                                    <!-- Avatar bottom left -->
+                                    <div class="prac-avatar">
+                                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=60&h=60&fit=crop&crop=face" alt="">
+                                    </div>
+                                    
+                                    <!-- Stats overlay -->
+                                    <div class="prac-stats-overlay">
+                                        <div><strong>21k</strong><span>Following</span></div>
+                                        <div><strong>1,208</strong><span>Followers</span></div>
+                                        <div><strong>380</strong><span>Posts</span></div>
+                                    </div>
+                                    
+                                    <!-- Carousel dots -->
+                                    <div class="prac-carousel-dots">
+                                        <span class="active"></span><span></span><span></span><span></span>
+                                    </div>
+                                </div>
+                                
+                                <!-- White bottom section -->
+                                <div class="prac-bottom-section">
+                                    <!-- Actions Row -->
+                                    <div class="prac-action-row">
+                                        <div class="prac-like">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg>
+                                            <span>1.2k</span>
+                                        </div>
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13"/></svg>
+                                        <button class="follow-btn">Follow</button>
+                                    </div>
+                                    
+                                    <!-- Tabs -->
+                                    <div class="prac-tab-row">
+                                        <span class="active">Healing</span>
+                                        <span>Courses</span>
+                                        <span>Workshops</span>
+                                    </div>
+                                    
+                                    <!-- Content Preview -->
+                                    <div class="prac-content-preview">
+                                        <div class="prac-session-mini">
+                                            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=60&h=60&fit=crop" alt="">
+                                            <div class="session-mini-info">
+                                                <strong>Crystal Healing</strong>
+                                                <span>⏱ 45m · 👤 1:1</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -4919,13 +5500,74 @@
                     Join the movement
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
-                <!-- Mobile Phone Mockup -->
+                <!-- Mobile Phone Mockup - Exact copy of desktop -->
                 <div class="mobile-phone-mockup">
-                    <div class="mobile-iphone">
-                        <div class="mobile-iphone-screen">
-                            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=260&h=500&fit=crop" alt="Schedule">
-                            <div class="mobile-screen-overlay">
-                                <span class="mobile-screen-label">Book Sessions</span>
+                    <div class="mobile-phone-wrapper">
+                        <div class="stripe-iphone-frame">
+                            <div class="stripe-iphone-screen">
+                                <div class="stripe-dynamic-island"></div>
+                                <div class="stripe-status-bar">
+                                    <span class="time">9:41</span>
+                                    <div class="status-right">
+                                        <div class="signal-bars"><span></span><span></span><span></span><span></span></div>
+                                        <div class="wifi-icon"></div>
+                                        <div class="battery-icon-sm"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Schedule Header -->
+                                <div class="schedule-nav">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+                                    <strong>Schedule</strong>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                                </div>
+                                
+                                <!-- Month -->
+                                <div class="month-row">
+                                    <div class="month-arrows">
+                                        <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+                                    </div>
+                                    <span>March 2026</span>
+                                    <div class="month-arrows">
+                                        <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+                                    </div>
+                                </div>
+                                
+                                <!-- Days -->
+                                <div class="days-row">
+                                    <div class="day-pill active"><span>THU</span><strong>26</strong></div>
+                                    <div class="day-pill"><span>FRI</span><strong>27</strong></div>
+                                    <div class="day-pill"><span>SAT</span><strong>28</strong></div>
+                                    <div class="day-pill"><span>SUN</span><strong>29</strong></div>
+                                </div>
+                                
+                                <!-- Session Card -->
+                                <div class="session-card-dark">
+                                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=300&h=180&fit=crop" alt="">
+                                    <div class="session-card-content">
+                                        <span class="level">Intermediate</span>
+                                        <strong class="title">Soul Discovery</strong>
+                                        <span class="subtitle">Chakra Balancing</span>
+                                        <div class="meta-row">
+                                            <span>🌐 English</span>
+                                            <span>⏱ 45m</span>
+                                        </div>
+                                        <div class="host-row">
+                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" alt="">
+                                            <div><strong>Jay Sangi</strong></div>
+                                            <span class="price">£65</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Time Slots -->
+                                <div class="time-grid">
+                                    <span class="slot">9:30</span>
+                                    <span class="slot active">14:30</span>
+                                    <span class="slot">15:30</span>
+                                </div>
+                                
+                                <button class="book-btn">Book Session</button>
                             </div>
                         </div>
                     </div>
@@ -4944,13 +5586,73 @@
                     Explore the pillars
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
-                <!-- Mobile Phone Mockup -->
+                <!-- Mobile Phone Mockup - Exact copy of desktop -->
                 <div class="mobile-phone-mockup">
-                    <div class="mobile-iphone">
-                        <div class="mobile-iphone-screen">
-                            <img src="https://images.unsplash.com/photo-1529693662653-9d480530a697?w=260&h=500&fit=crop" alt="Community">
-                            <div class="mobile-screen-overlay">
-                                <span class="mobile-screen-label">Community Circles</span>
+                    <div class="mobile-phone-wrapper">
+                        <div class="stripe-iphone-frame">
+                            <div class="stripe-iphone-screen mint-screen">
+                                <div class="stripe-dynamic-island"></div>
+                                <div class="stripe-status-bar">
+                                    <span class="time">9:41</span>
+                                    <div class="status-right">
+                                        <div class="signal-bars"><span></span><span></span><span></span><span></span></div>
+                                        <div class="wifi-icon"></div>
+                                        <div class="battery-icon-sm"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Groups Header -->
+                                <div class="groups-nav">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+                                    <strong>Community Groups</strong>
+                                    <svg viewBox="0 0 24 24" fill="var(--green-deep)"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+                                </div>
+                                
+                                <!-- Search -->
+                                <div class="groups-search-bar">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                                    <span>Search...</span>
+                                </div>
+                                
+                                <!-- Four Pillars -->
+                                <div class="pillars-row">
+                                    <div class="pillar-item">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--green-deep)" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                                        <span>Heart</span>
+                                    </div>
+                                    <div class="pillar-item">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--green-deep)" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                        <span>Body</span>
+                                    </div>
+                                    <div class="pillar-item">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--green-deep)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                                        <span>Mind</span>
+                                    </div>
+                                    <div class="pillar-item">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--green-deep)" stroke-width="1.5"><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 007.92 12.446A9 9 0 1112 3z"/></svg>
+                                        <span>Soul</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Your Groups -->
+                                <div class="groups-section-title">Your Groups</div>
+                                <div class="groups-scroll">
+                                    <div class="group-thumb">
+                                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=100&h=100&fit=crop" alt="">
+                                        <span>Akashic Reco...</span>
+                                    </div>
+                                    <div class="group-thumb">
+                                        <img src="https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=100&h=100&fit=crop" alt="">
+                                        <span>Soul Healing</span>
+                                    </div>
+                                    <div class="group-thumb">
+                                        <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=100&h=100&fit=crop" alt="">
+                                        <span>Light Langua...</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Popular -->
+                                <div class="groups-section-title">Popular</div>
                             </div>
                         </div>
                     </div>
@@ -4969,13 +5671,64 @@
                     See how it works
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
-                <!-- Mobile Phone Mockup -->
+                <!-- Mobile Phone Mockup - Exact copy of desktop -->
                 <div class="mobile-phone-mockup">
-                    <div class="mobile-iphone">
-                        <div class="mobile-iphone-screen">
-                            <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=260&h=500&fit=crop" alt="Journal">
-                            <div class="mobile-screen-overlay">
-                                <span class="mobile-screen-label">Daily Journal</span>
+                    <div class="mobile-phone-wrapper">
+                        <div class="stripe-iphone-frame">
+                            <div class="stripe-iphone-screen">
+                                <div class="stripe-dynamic-island"></div>
+                                <div class="stripe-status-bar">
+                                    <span class="time">9:41</span>
+                                    <div class="status-right">
+                                        <div class="signal-bars"><span></span><span></span><span></span><span></span></div>
+                                        <div class="wifi-icon"></div>
+                                        <div class="battery-icon-sm"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Chat Header -->
+                                <div class="chat-nav">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=40&h=40&fit=crop&crop=face" alt="">
+                                    <div class="chat-user-info">
+                                        <strong>Martha Craig</strong>
+                                        <span>tap here for contact info</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Messages -->
+                                <div class="chat-area">
+                                    <div class="bubble received">Good morning! <span class="time">10:18</span></div>
+                                    <div class="bubble received">Japan looks amazing! <span class="time">10:19</span></div>
+                                    <div class="bubble sent">It's morning in Tokyo 🌅 <span class="time">11:41</span></div>
+                                    <div class="bubble received">What is the most popular meal? <span class="time">11:45</span></div>
+                                </div>
+                                
+                                <!-- Shared Workshop -->
+                                <div class="shared-workshop">
+                                    <span class="live-badge">LIVE</span>
+                                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=200&h=90&fit=crop" alt="">
+                                    <div class="workshop-details">
+                                        <span class="type">Workshop: 16 Aug</span>
+                                        <strong>Soul Discovery</strong>
+                                        <div class="workshop-meta">
+                                            <span>🌐 English</span>
+                                            <span>⏱ 1 Day</span>
+                                        </div>
+                                        <div class="workshop-host">
+                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="">
+                                            <span>Jay Sangi</span>
+                                            <span class="price">£65</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Input -->
+                                <div class="chat-input-bar">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg>
+                                    <span>Type your message</span>
+                                    <svg viewBox="0 0 24 24" fill="var(--green-deep)"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -5343,7 +6096,7 @@
     <section class="pillars-section" id="pillars">
         <div class="pillars-container">
             <!-- Header -->
-            <div class="pillars-header">
+            <div class="pillars-header reveal">
                 <div class="pillars-label">
                     <svg width="16" height="16" viewBox="0 0 513 513"><use href="#heelar-star"/></svg>
                     Explore
@@ -5377,7 +6130,7 @@
                 <!-- Heart Panel -->
                 <div class="pillar-panel active" data-pillar="heart">
                     <div class="panel-image">
-                        <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=800&h=500&fit=crop" alt="Rose quartz crystals">
+                        <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=800w=800&h=500h=600&fit=crop" alt="Rose quartz crystals">
                         <div class="panel-image-overlay"></div>
                     </div>
                     <div class="panel-text">
@@ -5394,7 +6147,7 @@
                 <!-- Body Panel -->
                 <div class="pillar-panel" data-pillar="body">
                     <div class="panel-image">
-                        <img src="https://images.unsplash.com/photo-1545389336-cf090694435e?w=800&h=500&fit=crop" alt="Yoga practice at sunrise">
+                        <img src="https://images.unsplash.com/photo-1545389336-cf090694435e?w=800w=800&h=500h=600&fit=crop" alt="Yoga practice at sunrise">
                         <div class="panel-image-overlay"></div>
                     </div>
                     <div class="panel-text">
@@ -5411,7 +6164,7 @@
                 <!-- Mind Panel -->
                 <div class="pillar-panel" data-pillar="mind">
                     <div class="panel-image">
-                        <img src="https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?w=800&h=500&fit=crop" alt="Zen stones in balance">
+                        <img src="https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?w=800w=800&h=500h=600&fit=crop" alt="Zen stones in balance">
                         <div class="panel-image-overlay"></div>
                     </div>
                     <div class="panel-text">
@@ -5428,7 +6181,7 @@
                 <!-- Soul Panel -->
                 <div class="pillar-panel" data-pillar="soul">
                     <div class="panel-image">
-                        <img src="https://images.unsplash.com/photo-1514894780887-121968d00567?w=800&h=500&fit=crop" alt="Singing bowls and sacred space">
+                        <img src="https://images.unsplash.com/photo-1591228127791-8e2eaef098d3?w=800&h=600&fit=crop" alt="Singing bowls and sacred space">
                         <div class="panel-image-overlay"></div>
                     </div>
                     <div class="panel-text">
@@ -5456,7 +6209,7 @@
          ========================================== -->
     <section class="aaron-section" id="healers-intro">
         <div class="aaron-wrapper">
-            <div class="aaron-card">
+            <div class="aaron-card reveal-scale">
                 <!-- Header at Top -->
                 <div class="aaron-header">
                     <div class="aaron-label">
@@ -5601,7 +6354,11 @@
                     <div class="footer-star">
                         <svg width="36" height="36" viewBox="0 0 513 513"><use href="#heelar-star"/></svg>
                     </div>
-                    <img src="assets/images/heelar-logo-white.png" alt="Heelar" class="footer-logo">
+                    <svg class="footer-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 303 85" fill="none">
+                        <path d="M59.8 50.4V81.4C59.8 82.5333 59.3667 83.3333 58.5 83.8C57.6333 84.2 56.7667 84.2 55.9 83.8C55.0333 83.3333 54.6 82.5333 54.6 81.4V52.6H15.2V81.4C15.2 82.5333 14.7667 83.3333 13.9 83.8C13.0333 84.2 12.1667 84.2 11.3 83.8C10.4333 83.3333 10 82.5333 10 81.4V50.4V49.6V18.6C10 17.4667 10.4333 16.7 11.3 16.3C12.1667 15.8333 13.0333 15.8333 13.9 16.3C14.7667 16.7 15.2 17.4667 15.2 18.6V47.4H54.6V18.6C54.6 17.4667 55.0333 16.7 55.9 16.3C56.7667 15.8333 57.6333 15.8333 58.5 16.3C59.3667 16.7 59.8 17.4667 59.8 18.6V49.6C59.8 50.1333 59.8 50.4 59.8 50.4ZM110.524 71.4C111.524 70 112.724 69.8 114.124 70.8C115.524 71.8 115.724 73 114.724 74.4C110.191 80.8667 103.891 84.0667 95.8242 84C89.8242 84 84.6576 81.7333 80.3242 77.2C76.0576 72.6 73.8909 67 73.8242 60.4C73.8242 59.8667 73.8242 59.6 73.8242 59.6C73.8909 55.2667 74.9242 51.3 76.9242 47.7C78.9242 44.0333 81.5909 41.1667 84.9242 39.1C88.2576 37.0333 91.8909 36 95.8242 36C101.958 36 107.158 38.4667 111.424 43.4C115.691 48.3333 117.824 54.7333 117.824 62.6H79.2242C79.7576 67.2 81.5909 71.0667 84.7242 74.2C87.8576 77.2667 91.5576 78.8 95.8242 78.8C101.958 78.8667 106.858 76.4 110.524 71.4ZM79.2242 57.4H112.624C112.624 54.8 111.891 52.2667 110.424 49.8C108.958 47.3333 106.891 45.3 104.224 43.7C101.624 42.0333 98.8242 41.2 95.8242 41.2C91.5576 41.2 87.8576 42.7667 84.7242 45.9C81.5909 48.9667 79.7576 52.8 79.2242 57.4ZM162.477 71.4C163.477 70 164.677 69.8 166.077 70.8C167.477 71.8 167.677 73 166.677 74.4C162.144 80.8667 155.844 84.0667 147.777 84C141.777 84 136.611 81.7333 132.277 77.2C128.011 72.6 125.844 67 125.777 60.4C125.777 59.8667 125.777 59.6 125.777 59.6C125.844 55.2667 126.877 51.3 128.877 47.7C130.877 44.0333 133.544 41.1667 136.877 39.1C140.211 37.0333 143.844 36 147.777 36C153.911 36 159.111 38.4667 163.377 43.4C167.644 48.3333 169.777 54.7333 169.777 62.6H131.177C131.711 67.2 133.544 71.0667 136.677 74.2C139.811 77.2667 143.511 78.8 147.777 78.8C153.911 78.8667 158.811 76.4 162.477 71.4ZM131.177 57.4H164.577C164.577 54.8 163.844 52.2667 162.377 49.8C160.911 47.3333 158.844 45.3 156.177 43.7C153.577 42.0333 150.777 41.2 147.777 41.2C143.511 41.2 139.811 42.7667 136.677 45.9C133.544 48.9667 131.711 52.8 131.177 57.4ZM181.73 16C181.73 14.8667 182.164 14.1 183.03 13.7C183.897 13.2333 184.764 13.2333 185.63 13.7C186.497 14.1 186.93 14.8667 186.93 16V81.4C186.93 82.5333 186.497 83.3333 185.63 83.8C184.764 84.2 183.897 84.2 183.03 83.8C182.164 83.3333 181.73 82.5333 181.73 81.4V16ZM197.066 60C197.066 53.2667 199.2 47.6 203.466 43C207.8 38.3333 213 36 219.066 36C222.333 36 225.433 36.7667 228.366 38.3C231.3 39.7667 233.8 41.8333 235.866 44.5V38.6C235.866 38.0667 236 37.6 236.266 37.2C236.533 36.7333 236.833 36.4333 237.166 36.3C237.566 36.1 238 36 238.466 36C238.933 36 239.333 36.1 239.666 36.3C240.066 36.4333 240.4 36.7333 240.666 37.2C240.933 37.6 241.066 38.0667 241.066 38.6V60V81.4C241.066 82.5333 240.633 83.3333 239.766 83.8C238.9 84.2 238.033 84.2 237.166 83.8C236.3 83.3333 235.866 82.5333 235.866 81.4V75.5C233.8 78.1667 231.3 80.2667 228.366 81.8C225.433 83.2667 222.333 84 219.066 84C213 84 207.8 81.7 203.466 77.1C199.2 72.4333 197.066 66.7333 197.066 60ZM202.266 60C202.266 65.2 203.9 69.6333 207.166 73.3C210.433 76.9667 214.4 78.8 219.066 78.8C222.133 78.8 224.966 77.9667 227.566 76.3C230.166 74.5667 232.2 72.2667 233.666 69.4C235.133 66.5333 235.866 63.4 235.866 60C235.866 54.8 234.233 50.3667 230.966 46.7C227.7 43.0333 223.733 41.2 219.066 41.2C214.4 41.2 210.433 43.0333 207.166 46.7C203.9 50.3667 202.266 54.8 202.266 60ZM262.223 43.3C266.29 38.4333 271.957 36 279.223 36C280.023 36 280.657 36.2667 281.123 36.8C281.59 37.3333 281.823 37.9333 281.823 38.6C281.823 39.2667 281.59 39.8667 281.123 40.4C280.657 40.9333 280.023 41.2 279.223 41.2C275.89 41.2 272.957 41.9 270.423 43.3C267.89 44.7 265.89 46.8 264.423 49.6C262.957 52.4 262.223 55.7 262.223 59.5V60V81.4C262.223 82.5333 261.79 83.3333 260.923 83.8C260.057 84.2 259.19 84.2 258.323 83.8C257.457 83.3333 257.023 82.5333 257.023 81.4V60V59.8C257.023 59.6667 257.023 59.5667 257.023 59.5V38.6C257.023 38.0667 257.157 37.6 257.423 37.2C257.69 36.7333 257.99 36.4333 258.323 36.3C258.723 36.1 259.157 36 259.623 36C260.09 36 260.49 36.1 260.823 36.3C261.223 36.4333 261.557 36.7333 261.823 37.2C262.09 37.6 262.223 38.0667 262.223 38.6V43.3Z" fill="white"/>
+                        <path d="M292.609 13.2524C292.609 13.2524 293.694 18.4462 296.027 20.5666C298.033 22.3895 302.421 23.2671 302.421 23.2671C302.421 23.2671 297.959 23.9844 295.948 25.8087C293.711 27.8366 292.731 32.838 292.731 32.838C292.731 32.838 292.11 28.7354 290.507 26.8016C288.443 24.3124 283 23.3068 283 23.3068C283 23.3068 286.828 22.8028 288.72 21.4006C289.955 20.4848 290.574 19.795 291.341 18.4618C292.384 16.6466 292.609 13.2524 292.609 13.2524Z" fill="white"/>
+                        <path d="M292.839 18.0837C292.839 18.0837 293.398 20.7356 294.599 21.8182C295.632 22.7489 297.892 23.197 297.892 23.197C297.892 23.197 295.594 23.5633 294.558 24.4947C293.407 25.5301 292.902 28.0837 292.902 28.0837C292.902 28.0837 292.583 25.9891 291.757 25.0017C290.694 23.7307 287.892 23.2173 287.892 23.2173C287.892 23.2173 289.863 22.96 290.837 22.244C291.473 21.7764 291.792 21.4243 292.186 20.7435C292.724 19.8167 292.839 18.0837 292.839 18.0837Z" fill="#0f4e29"/>
+                    </svg>
                     <p class="footer-tagline">Creating Change Within</p>
                 </div>
                 
@@ -5727,7 +6484,7 @@
             rootMargin: '0px 0px -60px 0px'
         });
         
-        document.querySelectorAll('.reveal, .reveal-scale').forEach(el => {
+        document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right').forEach(el => {
             revealObserver.observe(el);
         });
         
