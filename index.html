@@ -576,6 +576,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            max-width: 1296px; /* 1200px + 2*48px padding */
+            margin: 0 auto;
+            padding: 0 clamp(20px, 5vw, 48px);
         }
         
         .logo {
@@ -583,22 +586,12 @@
             align-items: center;
             gap: 0;
             text-decoration: none;
-            transition: transform 0.3s var(--ease-out-back);
-        }
-        
-        .logo:hover {
-            transform: scale(1.03);
         }
         
         .logo-image {
             height: 32px;
             width: auto;
             display: block;
-            transition: transform 0.3s var(--ease-out-back);
-        }
-        
-        .logo:hover .logo-image {
-            transform: rotate(5deg);
         }
         
         /* Fallback if image doesn't load */
@@ -761,7 +754,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            padding: 156px 0 0;
+            padding: 156px 0 80px;
             overflow: hidden;
             background: var(--green-50);
             box-sizing: border-box;
@@ -812,14 +805,9 @@
             overflow: hidden;
         }
         
-        /* Heelar Star decoration */
+        /* Heelar Star decoration - hidden, using phone corner star instead */
         .hero-ambient .heelar-star-float {
-            position: absolute;
-            width: 120px;
-            height: 120px;
-            top: 8%;
-            right: 8%;
-            opacity: 0.15;
+            display: none;
         }
         
         /* Subtle star decorations */
@@ -843,18 +831,20 @@
         
         .hero-layout {
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 48px;
+            grid-template-columns: 1.15fr 0.85fr;
             align-items: center;
+            gap: 40px;
             position: relative;
             z-index: 2;
             width: 100%;
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
         }
         
         .hero-text {
             position: relative;
+            max-width: 650px;
+            text-align: left;
         }
         
         .hero-text-glow {
@@ -903,6 +893,12 @@
             animation: pulse 2s infinite;
         }
         
+        .badge-star {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+        
         @keyframes pulse {
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.6; transform: scale(1.2); }
@@ -936,7 +932,7 @@
             color: var(--iron-grey);
             line-height: 1.6;
             margin-bottom: 40px;
-            max-width: 480px;
+            max-width: 580px;
             animation: fadeInUp 0.8s var(--ease-out-expo) 0.2s forwards;
             opacity: 0;
             position: relative;
@@ -1074,13 +1070,24 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100%;
             animation: fadeIn 1s var(--ease-out-expo) 0.3s forwards;
             opacity: 0;
         }
         
         .hero-phone-container {
             position: relative;
+        }
+        
+        /* Heelar Star on phone corner */
+        .heelar-star-phone {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            top: -55px;
+            right: -50px;
+            fill: var(--green-deep);
+            opacity: 0.35;
+            z-index: 15;
         }
         
         .hero-glow {
@@ -1102,9 +1109,9 @@
             background: #000;
             border-radius: 48px;
             box-shadow: 
-                inset 0 0 0 1px rgba(255,255,255,0.1),
-                0 25px 50px rgba(0, 0, 0, 0.18),
-                0 12px 24px rgba(0, 0, 0, 0.12);
+                inset 0 0 0 1px rgba(255,255,255,0.15),
+                0 30px 60px rgba(0, 0, 0, 0.4),
+                0 15px 30px rgba(0, 0, 0, 0.3);
             overflow: hidden;
             position: relative;
             padding: 9px;
@@ -1919,19 +1926,25 @@
             background: var(--white);
         }
         
-        /* LEFT SIDE - Scrolling text sections */
+        /* LEFT SIDE - Text sections */
         .about-stripe-left {
             width: 50%;
-            padding: 0;
+            position: relative;
         }
         
-        /* Each text section - aligned to container like nav */
+        /* Each text section */
         .about-stripe-text {
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 80px 60px 80px 120px;
+            align-items: center;
+            padding-top: 120px; /* Account for fixed header (banner + nav) */
+            box-sizing: border-box;
+            position: relative;
+        }
+        
+        /* Text content */
+        .about-stripe-text-inner {
+            padding: 0 60px 0 max(48px, calc((100vw - 1296px) / 2 + 48px));
             max-width: 600px;
         }
         
@@ -1946,8 +1959,8 @@
         }
         
         .about-stripe-label svg {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             fill: currentColor;
         }
         
@@ -2013,6 +2026,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            padding-top: 120px; /* Account for fixed header (banner + nav) */
+            box-sizing: border-box;
             background: var(--green-deep);
             border-left: none;
             overflow: hidden;
@@ -2931,6 +2946,431 @@
             text-align: center;
         }
         
+        /* ===== All Healing Screen ===== */
+        .healing-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 16px;
+        }
+        
+        .healing-header svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--black);
+        }
+        
+        .healing-header strong {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--black);
+        }
+        
+        .healing-tabs {
+            display: flex;
+            gap: 20px;
+            padding: 0 16px 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .healing-tab {
+            font-size: 13px;
+            color: var(--slate);
+            padding-bottom: 8px;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+        }
+        
+        .healing-tab.active {
+            color: var(--black);
+            font-weight: 600;
+            border-bottom-color: var(--black);
+        }
+        
+        .healing-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 12px 16px 8px;
+        }
+        
+        .healing-pill {
+            padding: 5px 10px;
+            border-radius: 14px;
+            font-size: 10px;
+            border: 1px solid #ccc;
+            color: var(--black);
+            background: white;
+        }
+        
+        .healing-pill.active {
+            background: var(--green-deep);
+            color: white;
+            border-color: var(--green-deep);
+        }
+        
+        .healer-card {
+            margin: 8px 12px;
+            padding: 14px;
+            background: var(--green-100);
+            border-radius: 14px;
+            display: flex;
+            gap: 12px;
+            position: relative;
+        }
+        
+        .healer-card-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 2px solid var(--green-200);
+        }
+        
+        .healer-card-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .healer-card-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 1px;
+        }
+        
+        .healer-card-location {
+            font-size: 10px;
+            color: var(--slate);
+            margin-bottom: 6px;
+        }
+        
+        .healer-card-modalities {
+            font-size: 10px;
+            color: var(--black);
+            margin-bottom: 4px;
+        }
+        
+        .healer-card-modalities .dot {
+            color: var(--green-deep);
+            margin: 0 4px;
+        }
+        
+        .healer-card-sessions {
+            font-size: 9px;
+            color: var(--slate);
+        }
+        
+        .healer-card-followers {
+            position: absolute;
+            bottom: 10px;
+            left: 14px;
+            font-size: 9px;
+            color: var(--green-deep);
+            font-weight: 500;
+        }
+        
+        /* ===== Session Details Screen ===== */
+        .session-hero {
+            position: relative;
+            height: 280px;
+            background: #2a3a2a;
+        }
+        
+        .session-hero > img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .session-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 35%, rgba(0,0,0,0.5) 100%);
+            display: flex;
+            flex-direction: column;
+            padding: 38px 14px 10px;
+        }
+        
+        .session-hero-top {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .session-hero-top > svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .session-hero-title {
+            text-align: center;
+            color: white;
+            flex: 1;
+        }
+        
+        .session-hero-title .label {
+            font-size: 11px;
+            opacity: 0.9;
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .session-hero-title h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0 0 4px;
+            color: white;
+        }
+        
+        .session-hero-title .desc {
+            font-size: 11px;
+            opacity: 0.8;
+            display: block;
+            margin-bottom: 2px;
+            color: white;
+        }
+        
+        .session-hero-title .meta {
+            font-size: 10px;
+            opacity: 0.7;
+            display: block;
+            color: white;
+        }
+        
+        .session-hero-bottom {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        
+        .session-hero-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            color: white;
+            font-size: 10px;
+        }
+        
+        .session-hero-info span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .session-practitioner {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            margin-top: 8px;
+        }
+        
+        .session-practitioner img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.4);
+            object-fit: cover;
+        }
+        
+        .session-practitioner-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .session-practitioner-info strong {
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .session-practitioner-info span {
+            font-size: 9px;
+            opacity: 0.8;
+            color: white;
+        }
+        
+        .session-price-badge {
+            background: var(--green-deep);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .session-price-badge svg {
+            width: 14px;
+            height: 14px;
+            stroke: white;
+        }
+        
+        .session-dots {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            padding: 10px 0 0;
+        }
+        
+        .session-dots span {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.4);
+        }
+        
+        .session-dots span.active {
+            background: white;
+        }
+        
+        .session-actions {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #eee;
+            gap: 20px;
+        }
+        
+        .session-actions .like {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--black);
+            font-weight: 500;
+        }
+        
+        .session-actions .like svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .session-actions .action-icon {
+            width: 22px;
+            height: 22px;
+            stroke: var(--slate);
+        }
+        
+        .session-actions .follow-btn {
+            margin-left: auto;
+            background: white;
+            color: var(--green-deep);
+            border: 1.5px solid var(--green-deep);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .session-content {
+            padding: 16px 16px;
+            overflow-y: auto;
+            flex: 1;
+        }
+        
+        .session-section {
+            margin-bottom: 20px;
+        }
+        
+        .session-section h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--black);
+            margin: 0 0 8px;
+        }
+        
+        .session-section p {
+            font-size: 13px;
+            color: var(--slate);
+            line-height: 1.5;
+            margin: 0;
+        }
+        
+        .session-crystals {
+            margin-top: 20px;
+        }
+        
+        .session-crystals h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--black);
+            margin: 0 0 12px;
+        }
+        
+        .crystal-grid {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .crystal-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .crystal-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        
+        .crystal-item span {
+            font-size: 10px;
+            color: var(--black);
+        }
+        
+        .session-reviews {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid #eee;
+            margin-top: 20px;
+        }
+        
+        .session-reviews h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--black);
+            margin: 0 0 4px;
+        }
+        
+        .session-reviews .stars {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 11px;
+            color: var(--slate);
+        }
+        
+        .session-reviews .stars svg {
+            width: 12px;
+            height: 12px;
+            fill: #f5a623;
+        }
+        
+        .session-reviews .view-all {
+            font-size: 12px;
+            color: var(--green-deep);
+            font-weight: 600;
+        }
+        
         /* ===== Scene 4: Chat ===== */
         .chat-nav {
             display: flex;
@@ -3154,8 +3594,8 @@
            ABOUT SECTION - Responsive
            ============================================= */
         @media (max-width: 1200px) {
-            .about-stripe-text {
-                padding: 60px 40px 60px 60px;
+            .about-stripe-text-inner {
+                padding: 0 40px 0 60px;
             }
             
             .stripe-iphone-frame {
@@ -3165,8 +3605,8 @@
         }
         
         @media (max-width: 1024px) {
-            .about-stripe-text {
-                padding: 60px 30px 60px 40px;
+            .about-stripe-text-inner {
+                padding: 0 30px 0 40px;
             }
             
             .floating-icon,
@@ -3194,9 +3634,33 @@
             
             .about-stripe-text {
                 min-height: auto;
-                padding: 48px 24px;
+                padding: 48px 24px 0;
                 max-width: 100%;
                 text-align: center;
+                display: block;
+            }
+            
+            .about-stripe-text-inner {
+                padding: 0;
+                max-width: 100%;
+            }
+            
+            .about-stripe-label {
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+            
+            .about-stripe-title {
+                margin-bottom: 24px;
+            }
+            
+            .about-stripe-desc {
+                margin-bottom: 28px;
+            }
+            
+            .about-stripe-cta {
+                justify-content: center;
+                margin-bottom: 16px;
             }
             
             .about-stripe-right {
@@ -3207,18 +3671,20 @@
             .mobile-phone-mockup {
                 display: flex;
                 justify-content: center;
-                margin-top: 32px;
+                margin-top: 24px;
+                margin-bottom: -180px;
+                overflow: hidden;
             }
             
             .mobile-phone-wrapper {
-                transform: scale(0.85);
+                transform: scale(0.65);
                 transform-origin: top center;
             }
         }
         
         @media (max-width: 480px) {
             .about-stripe-text {
-                padding: 40px 16px;
+                padding: 40px 16px 0;
             }
             
             .about-stripe-title {
@@ -3234,7 +3700,11 @@
             }
             
             .mobile-phone-wrapper {
-                transform: scale(0.72);
+                transform: scale(0.55);
+            }
+            
+            .mobile-phone-mockup {
+                margin-bottom: -200px;
             }
         }
 
@@ -3267,10 +3737,8 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
             color: var(--green-deep);
             margin-bottom: 16px;
         }
@@ -3322,15 +3790,17 @@
         /* Base Card Style */
         .explore-card {
             flex-shrink: 0;
-            background: var(--green-50);
+            background: var(--green-100);
             border-radius: 16px;
             overflow: hidden;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             height: fit-content;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
         }
         
         .explore-card:hover {
             transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
         }
         
         .explore-card-image {
@@ -3457,8 +3927,9 @@
         /* ===== CIRCLE CARD - Circular Image ===== */
         .explore-card.circle {
             width: 240px;
-            background: var(--green-50);
+            background: var(--green-100);
             text-align: center;
+            overflow: visible;
         }
         
         .explore-card.circle .explore-card-image {
@@ -3466,18 +3937,31 @@
             height: 180px;
             border-radius: 50%;
             margin: 24px auto 0;
-            border: 3px solid var(--green-100);
+            border: 3px solid var(--green-200);
+            position: relative;
+            overflow: visible;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .explore-card.circle .explore-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            clip-path: circle(50%);
         }
         
         .explore-card.circle .explore-card-badge {
-            bottom: 8px;
+            position: absolute;
+            bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
             background: var(--green-deep);
+            z-index: 2;
         }
         
         .explore-card.circle .explore-card-content {
-            padding: 16px 20px 20px;
+            padding: 40px 20px 20px;
         }
         
         .explore-card.circle .explore-card-meta {
@@ -3695,10 +4179,8 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
             color: var(--green-deep);
             margin-bottom: 16px;
         }
@@ -4132,7 +4614,7 @@
         }
         
         .practitioners-sticky-container {
-            height: 450vh; /* 150vh per slide × 3 */
+            height: 250vh; /* Snappier scroll */
         }
         
         .practitioners-sticky {
@@ -4154,25 +4636,41 @@
             bottom: 0;
             display: flex;
             align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            padding: 0 clamp(24px, 5vw, 80px);
+            justify-content: flex-start;
+            transition: opacity 0.4s ease;
+            padding: 0;
+            overflow-y: auto;
         }
         
-        .practitioners-slide.active {
-            opacity: 1;
+        /* Slide 3 needs centered alignment for features grid */
+        .practitioners-slide[data-slide="2"] {
+            align-items: center;
+            justify-content: center;
+            padding: 0 24px;
+            padding-top: 0;
+        }
+        
+        /* Desktop only: initial state */
+        @media (min-width: 769px) {
+            .practitioners-slide {
+                opacity: 0;
+            }
+            .practitioners-slide.active {
+                opacity: 1;
+            }
         }
         
         .practitioners-slide-inner {
             display: grid;
-            grid-template-columns: 420px 1fr;
-            gap: clamp(60px, 6vw, 100px);
-            max-width: 1400px;
+            grid-template-columns: 1.1fr 1fr;
+            gap: clamp(40px, 5vw, 80px);
+            max-width: 1200px;
             width: 100%;
             align-items: center;
             overflow: visible;
-            margin-left: 40px;
+            padding-left: max(48px, calc((100vw - 1296px) / 2 + 48px));
+            padding-right: 48px;
+            box-sizing: border-box;
         }
         
         /* Left: Text Content */
@@ -4184,33 +4682,41 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--green-300);
+            color: white;
             margin-bottom: 20px;
         }
         
         .practitioners-label svg {
-            fill: var(--green-300);
+            width: 18px;
+            height: 18px;
+        }
+        
+        .practitioners-label svg path:first-child {
+            fill: white !important;
+        }
+        
+        .practitioners-label svg path:last-child {
+            fill: var(--green-deep) !important;
         }
         
         .practitioners-title {
             font-family: var(--font-display);
-            font-size: clamp(32px, 4vw, 52px);
+            font-size: clamp(36px, 4.5vw, 56px);
             font-weight: 600;
             color: white;
             line-height: 1.1;
             margin: 0 0 24px 0;
+            letter-spacing: -0.5px;
         }
         
         .practitioners-desc {
-            font-size: 17px;
+            font-size: 18px;
             color: var(--green-200);
             line-height: 1.7;
             margin: 0 0 32px 0;
-            max-width: 480px;
+            max-width: 520px;
         }
         
         .practitioners-features {
@@ -4224,7 +4730,7 @@
             display: flex;
             align-items: center;
             gap: 14px;
-            font-size: 15px;
+            font-size: 16px;
             color: var(--green-100);
         }
         
@@ -4239,12 +4745,12 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 16px 32px;
+            padding: 18px 36px;
             background: white;
             color: var(--green-deep);
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 600;
-            border-radius: 32px;
+            border-radius: 50px;
             text-decoration: none;
             transition: all 0.3s ease;
         }
@@ -4261,23 +4767,120 @@
             transform: translateX(4px);
         }
         
+        /* Mobile carousel wrapper - transparent on desktop */
+        .practitioners-slides-wrapper {
+            display: contents;
+        }
+        
+        /* Mobile dots - hidden on desktop */
+        .practitioners-mobile-dots {
+            display: none;
+        }
+        
         /* Right: Device Mockups Container */
         .practitioners-devices {
             position: relative;
-            min-height: 560px;
+            min-height: 420px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        /* ========== DASHBOARD PANEL - THIN DARK FRAME ========== */
-        .dash-panel {
+        /* ========== LAYERED MOCKUP COMPOSITION ========== */
+        .practitioners-devices {
             position: relative;
+            min-height: 480px;
             display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        
+        /* ========== PHONE MOCKUP - FOREGROUND LEFT ========== */
+        .prac-phone {
+            position: relative;
+            left: 0;
+            width: 220px;
+            z-index: 10;
+            flex-shrink: 0;
+        }
+        
+        .prac-phone-frame {
+            background: #1c1c1e;
+            border-radius: 36px;
+            padding: 10px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* ========== BROWSER MOCKUP - BEHIND PHONE, EXTENDS RIGHT ========== */
+        .dash-panel {
+            position: absolute;
+            left: 120px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
             background: white;
-            border-radius: 12px;
-            border: 3px solid #1c1c1e;
+            border-radius: 8px;
+            border: 1px solid #d0d0d0;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-            height: 540px;
-            width: 720px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2), 0 10px 30px rgba(0,0,0,0.15);
+            height: 380px;
+            width: 650px;
+            z-index: 5;
+        }
+        
+        /* Browser Chrome */
+        .browser-chrome {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 10px 14px;
+            background: #f5f5f5;
+            border-bottom: 1px solid #e0e0e0;
+            flex-shrink: 0;
+        }
+        
+        .browser-dots {
+            display: flex;
+            gap: 6px;
+        }
+        
+        .browser-dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ddd;
+        }
+        
+        .browser-dots span:first-child {
+            background: #ff5f57;
+        }
+        
+        .browser-dots span:nth-child(2) {
+            background: #ffbd2e;
+        }
+        
+        .browser-dots span:last-child {
+            background: #28c840;
+        }
+        
+        .browser-url {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            background: white;
+            border-radius: 5px;
+            padding: 6px 12px;
+            font-size: 11px;
+            color: #666;
+        }
+        
+        .browser-url svg {
+            stroke: #999;
+            flex-shrink: 0;
+            width: 12px;
+            height: 12px;
         }
         
         /* Dashboard Content Container */
@@ -4289,35 +4892,17 @@
         
         /* Sidebar */
         .dash-sidebar {
-            width: 160px;
+            width: 140px;
             background: white;
             border-right: 1px solid #eee;
-            padding: 12px 8px;
+            padding: 10px 6px;
             flex-shrink: 0;
             overflow-y: auto;
         }
         
-        /* ========== PHONE MOCKUP - OVERLAPPING RIGHT ========== */
-        .prac-phone {
-            position: absolute;
-            right: -40px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 260px;
-            filter: drop-shadow(-10px 20px 40px rgba(0, 0, 0, 0.25));
-            z-index: 10;
-        }
-        
-        .prac-phone-frame {
-            background: #1c1c1e;
-            border-radius: 44px;
-            padding: 12px;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
-        }
-        
         .prac-phone-screen {
             background: #e8f5f0;
-            border-radius: 32px;
+            border-radius: 26px;
             overflow: hidden;
             aspect-ratio: 9/19.5;
             position: relative;
@@ -4325,13 +4910,13 @@
         
         .prac-phone-notch {
             position: absolute;
-            top: 8px;
+            top: 6px;
             left: 50%;
             transform: translateX(-50%);
-            width: 90px;
-            height: 26px;
+            width: 65px;
+            height: 20px;
             background: #1c1c1e;
-            border-radius: 18px;
+            border-radius: 12px;
             z-index: 10;
         }
         
@@ -4339,8 +4924,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 20px 6px;
-            font-size: 12px;
+            padding: 10px 16px 4px;
+            font-size: 10px;
             font-weight: 600;
             color: var(--black);
         }
@@ -4348,8 +4933,8 @@
         .prac-phone-status-icons {
             display: flex;
             align-items: center;
-            gap: 4px;
-            font-size: 10px;
+            gap: 3px;
+            font-size: 9px;
         }
         
         .prac-phone-content {
@@ -4367,68 +4952,68 @@
         .prac-phone-header-left {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         
         .prac-phone-header-left svg {
-            width: 18px;
-            height: 18px;
+            width: 14px;
+            height: 14px;
             stroke: var(--slate);
         }
         
         .prac-phone-greeting {
-            font-size: 15px;
+            font-size: 12px;
             font-weight: 600;
             color: var(--black);
         }
         
         .prac-phone-header-right {
             display: flex;
-            gap: 14px;
+            gap: 10px;
         }
         
         .prac-phone-header-right svg {
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
             stroke: var(--black);
         }
         
         /* My Healing Section */
         .prac-phone-healing {
             text-align: center;
-            padding: 8px 16px 16px;
+            padding: 6px 12px 12px;
         }
         
         .prac-phone-healing-title {
-            font-size: 13px;
+            font-size: 11px;
             color: var(--slate);
-            margin-bottom: 14px;
+            margin-bottom: 10px;
         }
         
         .prac-phone-pillars {
             display: flex;
             justify-content: space-around;
-            padding: 0 10px;
+            padding: 0 8px;
         }
         
         .prac-phone-pillar {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
         
         .prac-phone-pillar-icon {
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         
         .prac-phone-pillar-icon svg {
-            width: 28px;
-            height: 28px;
+            width: 22px;
+            height: 22px;
             stroke: var(--green-deep);
         }
         
@@ -4868,12 +5453,12 @@
         .db-nav {
             display: flex;
             align-items: center;
-            padding: 2px 12px 6px;
+            padding: 2px 10px 4px;
         }
         
         .db-back {
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             stroke: var(--black);
             flex-shrink: 0;
         }
@@ -4881,7 +5466,7 @@
         .db-title {
             flex: 1;
             text-align: center;
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 600;
             color: var(--black);
         }
@@ -4889,33 +5474,33 @@
         .db-nav-right {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
         
         .db-nav-right svg {
-            width: 14px;
-            height: 14px;
+            width: 12px;
+            height: 12px;
         }
         
         /* 5 Icon Tabs - evenly spaced */
         .db-tabs {
             display: flex;
             justify-content: space-between;
-            padding: 2px 12px 6px;
+            padding: 2px 10px 4px;
         }
         
         .db-tab-icon {
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 6px;
+            border-radius: 5px;
         }
         
         .db-tab-icon svg {
-            width: 22px;
-            height: 22px;
+            width: 18px;
+            height: 18px;
         }
         
         .db-tab-icon.active {
@@ -4926,16 +5511,16 @@
         .db-alert {
             display: flex;
             align-items: center;
-            margin: 0 12px 8px;
-            padding: 5px 6px;
+            margin: 0 10px 6px;
+            padding: 4px 5px;
             background: #fce8e8;
-            border-radius: 6px;
-            gap: 4px;
+            border-radius: 4px;
+            gap: 3px;
             overflow: hidden;
         }
         
         .db-alert-text {
-            font-size: 7px;
+            font-size: 6px;
             color: var(--black);
             white-space: nowrap;
             overflow: hidden;
@@ -4943,18 +5528,18 @@
         }
         
         .db-alert-icon {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             flex-shrink: 0;
         }
         
         .db-reactivate {
-            padding: 3px 6px;
+            padding: 2px 5px;
             background: var(--green-deep);
             color: white;
-            font-size: 6px;
+            font-size: 5px;
             font-weight: 600;
-            border-radius: 3px;
+            border-radius: 2px;
             border: none;
             flex-shrink: 0;
             white-space: nowrap;
@@ -4966,19 +5551,19 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 12px;
-            margin-bottom: 4px;
+            padding: 0 10px;
+            margin-bottom: 3px;
         }
         
         .db-section-header h4 {
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 600;
             color: var(--black);
             margin: 0;
         }
         
         .db-section-header span {
-            font-size: 8px;
+            font-size: 7px;
             color: var(--green-deep);
         }
         
@@ -4987,14 +5572,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 3px 12px 4px;
-            font-size: 9px;
+            padding: 2px 10px 3px;
+            font-size: 7px;
             color: #888;
         }
         
         .db-date-row svg {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             stroke: #999;
         }
         
@@ -5002,17 +5587,17 @@
         .db-card {
             display: flex;
             align-items: flex-start;
-            gap: 8px;
-            margin: 0 12px 6px;
-            padding: 8px;
+            gap: 6px;
+            margin: 0 10px 5px;
+            padding: 6px;
             background: white;
-            border-radius: 8px;
+            border-radius: 6px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
         
         .db-card-img {
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             object-fit: cover;
             flex-shrink: 0;
@@ -5032,20 +5617,20 @@
         }
         
         .db-card-row1 strong {
-            font-size: 10px;
+            font-size: 8px;
             font-weight: 600;
             color: var(--black);
             white-space: nowrap;
         }
         
         .db-close-btn {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border: 1px solid var(--green-deep);
             border-radius: 50%;
             background: none;
             color: var(--green-deep);
-            font-size: 8px;
+            font-size: 6px;
             line-height: 1;
             display: flex;
             align-items: center;
@@ -5059,18 +5644,18 @@
         .db-card-row2 {
             display: flex;
             align-items: center;
-            gap: 4px;
-            margin-bottom: 3px;
+            gap: 3px;
+            margin-bottom: 2px;
             white-space: nowrap;
         }
         
         .db-meta {
-            font-size: 7px;
+            font-size: 6px;
             color: #666;
         }
         
         .db-client {
-            font-size: 7px;
+            font-size: 6px;
             color: #666;
             margin-left: auto;
         }
@@ -5085,12 +5670,12 @@
         .db-host {
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 3px;
         }
         
         .db-host img {
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             object-fit: cover;
         }
@@ -5101,13 +5686,13 @@
         }
         
         .db-host strong {
-            font-size: 7px;
+            font-size: 6px;
             font-weight: 500;
             color: var(--black);
         }
         
         .db-host span {
-            font-size: 6px;
+            font-size: 5px;
             color: #888;
         }
         
@@ -5117,19 +5702,19 @@
         
         .db-time {
             display: block;
-            font-size: 11px;
+            font-size: 9px;
             font-weight: 700;
             color: var(--black);
-            margin-bottom: 2px;
+            margin-bottom: 1px;
         }
         
         .db-start-btn {
-            padding: 3px 8px;
+            padding: 2px 6px;
             background: var(--green-deep);
             color: white;
-            font-size: 7px;
+            font-size: 6px;
             font-weight: 600;
-            border-radius: 3px;
+            border-radius: 2px;
             border: none;
         }
         
@@ -5140,19 +5725,31 @@
         /* ========== PHOTO COLLAGE - SLIDE 2 ========== */
         .practitioners-collage {
             display: flex;
-            gap: 20px;
+            gap: 16px;
             align-items: flex-start;
-            height: 560px;
+            height: 440px;
+        }
+        
+        /* Slide 2: Extend collage towards viewport edge - desktop only */
+        @media (min-width: 769px) {
+            .practitioners-slide[data-slide="1"] .practitioners-slide-inner {
+                padding-right: 0;
+            }
+            
+            .practitioners-slide[data-slide="1"] .practitioners-collage {
+                margin-right: -80px;
+                padding-right: 24px;
+            }
         }
         
         .collage-col {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
         }
         
         .collage-col-1 {
-            padding-top: 100px;
+            padding-top: 70px;
         }
         
         .collage-col-2 {
@@ -5160,13 +5757,13 @@
         }
         
         .collage-col-3 {
-            padding-top: 160px;
+            padding-top: 110px;
         }
         
         .collage-photo {
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.25);
         }
         
         .collage-photo img {
@@ -5177,23 +5774,23 @@
         }
         
         .collage-col-1 .collage-photo {
-            width: 220px;
-            height: 300px;
+            width: 180px;
+            height: 250px;
         }
         
         .collage-col-2 .collage-photo:first-child {
-            width: 200px;
-            height: 220px;
+            width: 165px;
+            height: 185px;
         }
         
         .collage-col-2 .collage-photo:last-child {
-            width: 200px;
-            height: 240px;
+            width: 165px;
+            height: 200px;
         }
         
         .collage-col-3 .collage-photo {
-            width: 200px;
-            height: 240px;
+            width: 165px;
+            height: 200px;
         }
         
         /* ========== SLIDE 3: FEATURES & TOOLS PHONE ========== */
@@ -5240,54 +5837,208 @@
         }
         
         .feature-text span {
-            font-size: 14px;
+            font-size: 15px;
             color: rgba(255,255,255,0.7);
+        }
+        
+        /* ========== SLIDE 3 CENTERED LAYOUT ========== */
+        .tools-slide-centered {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 10px 24px 24px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .tools-header-centered {
+            max-width: 800px;
+            margin-bottom: 16px;
+        }
+        
+        .tools-header-centered .practitioners-label {
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        
+        .tools-header-centered .practitioners-title {
+            text-align: center;
+            font-size: clamp(28px, 4vw, 44px);
+            white-space: nowrap;
+            margin-bottom: 10px;
+        }
+        
+        .tools-header-centered .practitioners-desc {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+            white-space: nowrap;
+        }
+        
+        .tools-phone-centered {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .tools-phone-centered .tools-phone {
+            width: 200px;
+        }
+        
+        /* Bottom Features Row */
+        .tools-features-row {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            width: 100%;
+            max-width: 900px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .tools-feature-item {
+            flex: 1;
+            max-width: 240px;
+            text-align: center;
+        }
+        
+        .tools-feature-item strong {
+            display: block;
+            font-size: 15px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 4px;
+        }
+        
+        .tools-feature-item p {
+            font-size: 13px;
+            line-height: 1.5;
+            color: rgba(255,255,255,0.6);
+            margin: 0;
+        }
+        
+        /* ========== FEATURES GRID - SLIDE 3 ========== */
+        .features-grid-slide {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 10px 24px;
+            width: 100%;
+            max-width: 1000px;
+            box-sizing: border-box;
+        }
+        
+        .features-grid-header {
+            margin-bottom: 28px;
+        }
+        
+        .features-grid-header .practitioners-label {
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        
+        .features-grid-header .practitioners-title {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: clamp(32px, 4vw, 48px);
+        }
+        
+        .features-grid-header .practitioners-desc {
+            text-align: center;
+            max-width: 550px;
+            margin: 0 auto;
+            font-size: 16px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px 40px;
+            width: 100%;
+        }
+        
+        .feature-card {
+            text-align: center;
+        }
+        
+        .feature-card-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+        }
+        
+        .feature-card-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--green-300);
+        }
+        
+        .feature-card h3 {
+            font-family: var(--font-display);
+            font-size: 15px;
+            font-weight: 600;
+            color: white;
+            margin: 0 0 6px 0;
+        }
+        
+        .feature-card p {
+            font-size: 13px;
+            line-height: 1.5;
+            color: rgba(255,255,255,0.7);
+            margin: 0;
         }
         
         /* Tools Phone Container */
         .tools-phone-container {
             display: flex;
             justify-content: center;
-            padding-left: 60px;
+            padding-left: 20px;
         }
         
         .tools-phone {
-            width: 300px;
+            width: 200px;
             filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.3));
         }
         
         .tools-phone-frame {
             background: #1c1c1e;
-            border-radius: 44px;
-            padding: 12px;
+            border-radius: 32px;
+            padding: 8px;
         }
         
         .tools-phone-screen {
             background: #e8f5f0;
-            border-radius: 32px;
+            border-radius: 24px;
             overflow: hidden;
             aspect-ratio: 9/19.5;
             position: relative;
-            padding: 0 12px 12px;
+            padding: 0 8px 8px;
         }
         
         .tools-phone-notch {
             position: absolute;
-            top: 8px;
+            top: 5px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
-            height: 24px;
+            width: 56px;
+            height: 18px;
             background: #1c1c1e;
-            border-radius: 12px;
+            border-radius: 9px;
         }
         
         .tools-status-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 8px 8px;
-            font-size: 12px;
+            padding: 10px 5px 5px;
+            font-size: 9px;
             font-weight: 600;
             color: #1c1c1e;
         }
@@ -5295,60 +6046,63 @@
         .tools-status-icons {
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 3px;
         }
         
         .tools-status-icons svg {
             color: #1c1c1e;
+            transform: scale(0.85);
         }
         
         .tools-nav-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 8px 0 12px;
+            padding: 6px 0 10px;
         }
         
         .tools-nav-header > span {
-            font-size: 18px;
+            font-size: 15px;
             font-weight: 600;
             color: #1c1c1e;
         }
         
         .tools-nav-header svg {
             color: #1c1c1e;
+            width: 18px;
+            height: 18px;
         }
         
         .tools-nav-right {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         
         .tools-help-icon {
-            width: 22px;
-            height: 22px;
-            border: 2px solid var(--green-deep);
+            width: 18px;
+            height: 18px;
+            border: 1.5px solid var(--green-deep);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 600;
             color: var(--green-deep);
         }
         
         .tools-stats-row {
             display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
+            gap: 6px;
+            margin-bottom: 10px;
         }
         
         .tools-stat-box {
             flex: 1;
             background: white;
-            border-radius: 10px;
-            padding: 10px 8px;
+            border-radius: 8px;
+            padding: 8px 6px;
             text-align: center;
             position: relative;
         }
@@ -5359,33 +6113,33 @@
         
         .tools-stat-arrow {
             position: absolute;
-            top: 6px;
-            right: 8px;
-            font-size: 10px;
+            top: 5px;
+            right: 6px;
+            font-size: 8px;
             color: var(--green-deep);
         }
         
         .tools-stat-value {
-            font-size: 16px;
+            font-size: 13px;
             font-weight: 600;
             color: #1c1c1e;
         }
         
         .tools-stat-label {
-            font-size: 10px;
+            font-size: 8px;
             color: #666;
-            margin-top: 2px;
+            margin-top: 1px;
         }
         
         .tools-bookings-row {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 10px 12px;
+            gap: 6px;
+            padding: 8px 10px;
             background: white;
-            border-radius: 10px;
-            margin-bottom: 12px;
-            font-size: 11px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 9px;
             color: #333;
         }
         
@@ -5404,26 +6158,26 @@
         
         .tools-time-filters {
             display: flex;
-            gap: 4px;
-            margin-bottom: 10px;
-            font-size: 10px;
+            gap: 3px;
+            margin-bottom: 8px;
+            font-size: 8px;
         }
         
         .tools-time-filters span {
-            padding: 4px 10px;
+            padding: 3px 8px;
             color: #666;
         }
         
         .tools-time-filters span.active {
             color: #1c1c1e;
             font-weight: 600;
-            border-bottom: 2px solid #1c1c1e;
+            border-bottom: 1.5px solid #1c1c1e;
         }
         
         .tools-category-pills {
             display: flex;
-            gap: 6px;
-            margin-bottom: 12px;
+            gap: 5px;
+            margin-bottom: 10px;
             overflow-x: auto;
         }
         
@@ -5431,10 +6185,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 6px 12px;
+            padding: 5px 10px;
             background: #ddd;
-            border-radius: 6px;
-            font-size: 9px;
+            border-radius: 5px;
+            font-size: 7px;
             color: #666;
             white-space: nowrap;
         }
@@ -5446,31 +6200,31 @@
         
         .tools-pill span:last-child {
             font-weight: 600;
-            margin-top: 2px;
+            margin-top: 1px;
         }
         
         .tools-chart {
             display: flex;
-            gap: 6px;
-            margin-bottom: 12px;
-            height: 100px;
+            gap: 5px;
+            margin-bottom: 10px;
+            height: 80px;
         }
         
         .tools-chart-y {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            font-size: 7px;
+            font-size: 6px;
             color: #999;
-            padding: 4px 0;
+            padding: 3px 0;
         }
         
         .tools-chart-bars {
             flex: 1;
             display: flex;
             align-items: flex-end;
-            gap: 8px;
-            padding-bottom: 16px;
+            gap: 6px;
+            padding-bottom: 14px;
             border-bottom: 1px dashed #ccc;
             position: relative;
         }
@@ -5478,7 +6232,7 @@
         .tools-bar {
             flex: 1;
             background: #999;
-            border-radius: 3px 3px 0 0;
+            border-radius: 2px 2px 0 0;
             position: relative;
         }
         
@@ -5488,47 +6242,47 @@
         
         .tools-bar-tooltip {
             position: absolute;
-            top: -20px;
+            top: -16px;
             left: 50%;
             transform: translateX(-50%);
             background: var(--green-deep);
             color: white;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 8px;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 7px;
             font-weight: 600;
             white-space: nowrap;
         }
         
         .tools-chart-x {
             position: absolute;
-            bottom: -14px;
+            bottom: -12px;
             left: 0;
             right: 0;
             display: flex;
             justify-content: space-between;
-            font-size: 8px;
+            font-size: 6px;
             color: #999;
         }
         
         .tools-tabs {
             display: flex;
             border-bottom: 1px solid #ddd;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .tools-tab {
             flex: 1;
             text-align: center;
-            padding: 8px;
-            font-size: 11px;
+            padding: 6px;
+            font-size: 9px;
             color: #999;
         }
         
         .tools-tab.active {
             color: #1c1c1e;
             font-weight: 600;
-            border-bottom: 2px solid #1c1c1e;
+            border-bottom: 1.5px solid #1c1c1e;
         }
         
         .tools-session-header {
@@ -5588,15 +6342,17 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            padding: 8px 10px 16px;
+            padding: 8px 10px 14px;
         }
         
         .dash-sidebar-logo svg {
             fill: var(--green-deep);
+            width: 14px;
+            height: 14px;
         }
         
         .dash-sidebar-logo span {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             color: var(--green-deep);
         }
@@ -5605,10 +6361,10 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            padding: 8px 10px;
+            padding: 6px 10px;
             margin: 0 6px 10px;
             background: var(--green-50);
-            border-radius: 6px;
+            border-radius: 5px;
             font-size: 10px;
             color: var(--slate);
         }
@@ -5629,8 +6385,8 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 10px;
-            border-radius: 6px;
+            padding: 6px 10px;
+            border-radius: 5px;
             font-size: 11px;
             color: var(--slate);
             cursor: pointer;
@@ -5641,15 +6397,15 @@
         }
         
         .dash-nav-item svg {
-            width: 14px;
-            height: 14px;
+            width: 13px;
+            height: 13px;
             stroke: currentColor;
             flex-shrink: 0;
         }
         
         .dash-nav-item svg.chevron {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             margin-left: auto;
         }
         
@@ -5657,11 +6413,11 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 6px 10px 6px 28px;
+            padding: 5px 10px 5px 26px;
             font-size: 10px;
             color: var(--slate);
             cursor: pointer;
-            border-radius: 6px;
+            border-radius: 5px;
         }
         
         .dash-nav-sub:hover {
@@ -5669,8 +6425,8 @@
         }
         
         .dash-nav-sub svg {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             stroke: currentColor;
         }
         
@@ -5686,7 +6442,7 @@
         /* Main Content */
         .dash-main {
             flex: 1;
-            padding: 12px 16px;
+            padding: 10px 12px;
             overflow-y: auto;
             background: #f5f8f6;
         }
@@ -5704,18 +6460,18 @@
         .dash-topbar-left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
         
         .dash-back-arrow {
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             stroke: var(--slate);
         }
         
         .dash-user-avatar {
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             object-fit: cover;
         }
@@ -5723,6 +6479,7 @@
         .dash-user-info {
             display: flex;
             flex-direction: column;
+            gap: 2px;
         }
         
         .dash-user-info strong {
@@ -5739,12 +6496,13 @@
         .dash-page-info {
             display: flex;
             flex-direction: column;
-            padding-left: 12px;
+            padding-left: 10px;
             border-left: 1px solid #ddd;
+            gap: 2px;
         }
         
         .dash-page-info strong {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             color: var(--black);
         }
@@ -5757,17 +6515,17 @@
         .dash-topbar-right {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         
         .dash-search-box {
             display: flex;
             align-items: center;
-            gap: 6px;
-            padding: 6px 12px;
+            gap: 5px;
+            padding: 5px 10px;
             background: white;
             border: 1px solid #ddd;
-            border-radius: 6px;
+            border-radius: 5px;
             font-size: 10px;
             color: var(--slate);
         }
@@ -5779,17 +6537,17 @@
         }
         
         .dash-availability-btn {
-            padding: 6px 14px;
+            padding: 5px 12px;
             background: var(--green-deep);
             color: white;
-            font-size: 10px;
+            font-size: 8px;
             font-weight: 600;
-            border-radius: 6px;
+            border-radius: 4px;
             border: none;
         }
         
         .dash-time {
-            font-size: 11px;
+            font-size: 8px;
             color: var(--slate);
         }
         
@@ -5798,11 +6556,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 12px;
+            padding: 6px 10px;
             background: #ffc107;
-            border-radius: 6px;
-            margin-bottom: 12px;
-            font-size: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 9px;
             color: var(--black);
         }
         
@@ -5813,39 +6571,43 @@
         }
         
         .dash-join-btn {
-            padding: 4px 12px;
+            padding: 4px 10px;
             background: var(--green-deep);
             color: white;
-            font-size: 9px;
+            font-size: 8px;
             font-weight: 600;
             border-radius: 4px;
             border: none;
         }
         
         .dash-close-alert {
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
             background: rgba(0,0,0,0.1);
             border: none;
             border-radius: 50%;
             color: var(--black);
-            font-size: 12px;
+            font-size: 10px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
         }
         
         /* Section Title */
         .dash-section-title {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             color: var(--black);
-            margin: 0 0 10px 0;
+            margin: 0 0 8px 0;
         }
         
         /* Summary Row - Achievement + Stats */
         .dash-summary-row {
             display: flex;
-            gap: 16px;
-            margin-bottom: 16px;
+            gap: 12px;
+            margin-bottom: 12px;
         }
         
         .dash-achievement {
@@ -5854,8 +6616,8 @@
         
         .dash-donut {
             position: relative;
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
         }
         
         .dash-donut svg {
@@ -5874,12 +6636,12 @@
         
         .dash-donut-text small {
             display: block;
-            font-size: 7px;
+            font-size: 6px;
             color: var(--slate);
         }
         
         .dash-donut-text strong {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
             color: var(--green-deep);
         }
@@ -5887,15 +6649,15 @@
         /* Stats Grid */
         .dash-stats-grid {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             flex: 1;
         }
         
         .dash-stat-card {
             flex: 1;
             background: white;
-            border-radius: 8px;
-            padding: 10px 12px;
+            border-radius: 6px;
+            padding: 8px 10px;
             border: 1px solid #eee;
         }
         
@@ -5903,7 +6665,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
         }
         
         .dash-stat-header span:first-child {
@@ -5912,41 +6674,41 @@
         }
         
         .dash-stat-badge {
-            font-size: 8px;
+            font-size: 7px;
             color: var(--green-deep);
             background: rgba(15, 78, 41, 0.1);
-            padding: 2px 6px;
+            padding: 2px 5px;
             border-radius: 10px;
         }
         
         .dash-stat-values {
             display: flex;
-            gap: 12px;
+            gap: 10px;
         }
         
         .dash-stat-values strong {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
             color: var(--black);
         }
         
         .dash-stat-values span {
-            font-size: 16px;
+            font-size: 14px;
             color: var(--slate);
         }
         
         /* Countries Row */
         .dash-countries-row {
             display: flex;
-            gap: 12px;
-            margin-bottom: 16px;
+            gap: 8px;
+            margin-bottom: 10px;
         }
         
         .dash-country-card {
             flex: 1;
             background: white;
-            border-radius: 8px;
-            padding: 12px;
+            border-radius: 5px;
+            padding: 8px;
             border: 1px solid #eee;
         }
         
@@ -5954,31 +6716,31 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
         
         .dash-country-header span:first-child {
-            font-size: 10px;
+            font-size: 7px;
             color: var(--slate);
         }
         
         .dash-more {
             color: var(--slate);
-            font-size: 14px;
+            font-size: 10px;
         }
         
         .dash-country-value {
-            font-size: 20px;
+            font-size: 14px;
             font-weight: 600;
             color: var(--black);
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
         
         .dash-country-footer {
             display: flex;
             align-items: center;
-            gap: 4px;
-            font-size: 8px;
+            gap: 3px;
+            font-size: 6px;
             color: var(--slate);
         }
         
@@ -5987,8 +6749,8 @@
         }
         
         .dash-sparkline {
-            width: 50px;
-            height: 16px;
+            width: 40px;
+            height: 12px;
             margin-left: auto;
         }
         
@@ -5997,7 +6759,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
         
         .dash-monthly-header .dash-section-title {
@@ -6007,24 +6769,24 @@
         .dash-monthly-controls {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 4px;
         }
         
         .dash-year-select {
-            padding: 4px 8px;
-            font-size: 10px;
+            padding: 2px 6px;
+            font-size: 7px;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 3px;
             background: white;
         }
         
         .dash-chart-btn {
-            width: 28px;
-            height: 28px;
+            width: 18px;
+            height: 18px;
             background: white;
             border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 12px;
+            border-radius: 3px;
+            font-size: 9px;
             cursor: pointer;
         }
         
@@ -6032,8 +6794,8 @@
         .dash-chart-container {
             display: flex;
             background: white;
-            border-radius: 8px;
-            padding: 12px;
+            border-radius: 5px;
+            padding: 8px;
             border: 1px solid #eee;
         }
         
@@ -6041,8 +6803,8 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding-right: 8px;
-            font-size: 8px;
+            padding-right: 6px;
+            font-size: 6px;
             color: var(--slate);
         }
         
@@ -6052,14 +6814,14 @@
         
         .dash-line-chart {
             width: 100%;
-            height: 60px;
+            height: 45px;
         }
         
         .dash-chart-x {
             display: flex;
             justify-content: space-between;
-            margin-top: 6px;
-            font-size: 8px;
+            margin-top: 4px;
+            font-size: 6px;
             color: var(--slate);
         }
         
@@ -6555,7 +7317,6 @@
             background: #1c1c1e;
             border-radius: 32px;
             padding: 8px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
         }
         
         .prac-phone-screen {
@@ -6872,56 +7633,74 @@
         /* Practitioners Responsive */
         @media (max-width: 1200px) {
             .practitioners-slide-inner {
-                grid-template-columns: 360px 1fr;
-                margin-left: 30px;
-                gap: 50px;
+                grid-template-columns: 1.1fr 1fr;
+                gap: 40px;
             }
             
             .dash-panel {
-                height: 450px;
-                width: 600px;
+                height: 340px;
+                width: 580px;
+                left: 100px;
             }
             
             .prac-phone {
-                width: 240px;
-                right: -60px;
+                width: 200px;
+            }
+            
+            .prac-phone-frame {
+                border-radius: 32px;
+                padding: 8px;
             }
             
             .dash-sidebar {
-                width: 140px;
+                width: 120px;
+            }
+            
+            .browser-chrome {
+                padding: 6px 10px;
+            }
+            
+            .browser-dots span {
+                width: 7px;
+                height: 7px;
+            }
+            
+            .browser-url {
+                font-size: 9px;
+                padding: 3px 8px;
             }
             
             .practitioners-collage {
-                gap: 16px;
-                height: 480px;
+                gap: 14px;
+                height: 380px;
             }
             
             .collage-col-1 .collage-photo {
-                width: 170px;
-                height: 240px;
+                width: 140px;
+                height: 190px;
             }
             
             .collage-col-2 .collage-photo:first-child {
-                width: 150px;
-                height: 170px;
+                width: 125px;
+                height: 140px;
             }
             
             .collage-col-2 .collage-photo:last-child {
-                width: 150px;
-                height: 190px;
+                width: 125px;
+                height: 155px;
             }
             
             .collage-col-3 .collage-photo {
-                width: 150px;
-                height: 190px;
+                width: 125px;
+                height: 155px;
             }
             
             .tools-phone {
-                width: 280px;
+                width: 200px;
             }
             
             .tools-phone-container {
-                padding-left: 40px;
+                padding-left: 20px;
             }
         }
         
@@ -6930,7 +7709,8 @@
                 grid-template-columns: 1fr;
                 text-align: center;
                 gap: 40px;
-                margin-left: 0;
+                padding-left: 24px;
+                padding-right: 24px;
             }
             
             .practitioners-text {
@@ -6949,41 +7729,66 @@
             .practitioners-devices {
                 order: 2;
                 display: flex;
-                justify-content: center;
-                min-height: 460px;
+                justify-content: flex-start;
+                min-height: 400px;
             }
             
             .dash-panel {
                 width: 520px;
-                height: 400px;
+                height: 320px;
+                left: 90px;
             }
             
             .prac-phone {
-                width: 220px;
-                right: -40px;
+                width: 180px;
+            }
+            
+            .prac-phone-frame {
+                border-radius: 28px;
+                padding: 7px;
             }
             
             .dash-sidebar {
-                width: 120px;
+                width: 100px;
+            }
+            
+            .browser-chrome {
+                padding: 5px 8px;
+                gap: 8px;
+            }
+            
+            .browser-dots span {
+                width: 6px;
+                height: 6px;
+            }
+            
+            .browser-url {
+                font-size: 8px;
+                padding: 3px 6px;
+            }
+            
+            .browser-url svg {
+                width: 8px;
+                height: 8px;
             }
             
             .practitioners-collage {
                 order: 2;
-                gap: 16px;
-                height: 450px;
+                gap: 12px;
+                height: 360px;
             }
             
             .collage-col-1 {
-                padding-top: 60px;
+                padding-top: 50px;
             }
             
             .collage-col-3 {
-                padding-top: 100px;
+                padding-top: 90px;
             }
             
             .collage-col-1 .collage-photo {
-                width: 160px;
-                height: 220px;
+                width: 140px;
+                height: 190px;
             }
             
             .collage-col-2 .collage-photo:first-child {
@@ -7010,200 +7815,445 @@
                 width: 260px;
             }
             
-            .feature-highlights {
-                align-items: center;
+            /* Centered layout for 1024px */
+            .tools-slide-centered {
+                padding: 12px 24px 24px;
             }
             
-            .feature-item {
-                text-align: left;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .practitioners-slide {
-                padding: 80px 20px 60px;
+            .tools-phone-centered .tools-phone {
+                width: 180px;
             }
             
-            .practitioners-devices {
-                min-height: 380px;
+            .tools-features-row {
+                gap: 30px;
             }
             
-            .dash-panel {
-                width: 420px;
-                height: 340px;
+            /* Features Grid 1024px */
+            .features-grid-slide {
+                padding: 10px 24px;
             }
             
-            .prac-phone {
-                width: 200px;
-                right: -30px;
+            .features-grid-header {
+                margin-bottom: 24px;
             }
             
-            .dash-sidebar {
-                display: none;
+            .features-grid {
+                gap: 20px 32px;
             }
             
-            .practitioners-dots {
-                right: 20px;
-            }
-            
-            .practitioners-collage {
-                gap: 12px;
-                height: 380px;
-            }
-            
-            .collage-col-1 {
-                padding-top: 40px;
-            }
-            
-            .collage-col-3 {
-                padding-top: 80px;
-            }
-            
-            .collage-col-1 .collage-photo {
-                width: 130px;
-                height: 180px;
-            }
-            
-            .collage-col-2 .collage-photo:first-child {
-                width: 110px;
-                height: 130px;
-            }
-            
-            .collage-col-2 .collage-photo:last-child {
-                width: 110px;
-                height: 150px;
-            }
-            
-            .collage-col-3 .collage-photo {
-                width: 110px;
-                height: 140px;
-            }
-            
-            .tools-phone {
-                width: 240px;
-            }
-            
-            .feature-icon {
+            .feature-card-icon {
                 width: 40px;
                 height: 40px;
+                margin-bottom: 8px;
             }
             
-            .feature-icon svg {
-                width: 20px;
-                height: 20px;
+            .feature-card-icon svg {
+                width: 18px;
+                height: 18px;
             }
             
-            .feature-text strong {
+            .feature-card h3 {
                 font-size: 14px;
+                margin-bottom: 5px;
             }
             
-            .feature-text span {
+            .feature-card p {
                 font-size: 12px;
             }
         }
         
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
+            /* Convert practitioners section to simple vertical stack */
+            .practitioners-section {
+                overflow-x: hidden !important;
+                max-width: 100vw !important;
+            }
+            
             .practitioners-sticky-container {
-                height: auto;
+                height: auto !important;
+                overflow-x: hidden !important;
             }
             
             .practitioners-sticky {
-                position: relative;
-                height: auto;
+                position: relative !important;
+                height: auto !important;
+                display: block !important;
+                top: auto !important;
+                overflow-x: hidden !important;
+            }
+            
+            .practitioners-slides-wrapper {
+                display: block !important;
+                width: 100% !important;
+                max-width: 100vw !important;
+                overflow-x: hidden !important;
             }
             
             .practitioners-slide {
-                position: relative;
-                opacity: 1;
-                padding: 60px 16px;
+                position: relative !important;
+                top: auto !important;
+                left: auto !important;
+                right: auto !important;
+                bottom: auto !important;
+                width: 100% !important;
+                max-width: 100vw !important;
+                height: auto !important;
+                padding: 50px 24px 30px !important;
+                box-sizing: border-box !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                display: block !important;
+                overflow: visible !important;
+                align-items: center !important;
+            }
+            
+            /* Reset slide 2 specific desktop styles on mobile */
+            .practitioners-slide[data-slide="2"] {
+                align-items: flex-start !important;
+                padding-top: 40px !important;
+            }
+            
+            .practitioners-slide * {
+                opacity: 1 !important;
+                visibility: visible !important;
+            }
+            
+            .practitioners-slide-inner {
+                display: block !important;
+                margin: 0 !important;
+                text-align: center !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow: visible !important;
+            }
+            
+            .practitioners-text {
+                display: block !important;
+                margin-bottom: 24px !important;
+                max-width: 100% !important;
+                width: 100% !important;
+                padding: 0 10px !important;
+                box-sizing: border-box !important;
+                overflow: hidden !important;
+            }
+            
+            .practitioners-label {
+                font-size: 14px !important;
+                margin-bottom: 16px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 8px !important;
+                color: white !important;
+                flex-wrap: wrap !important;
+            }
+            
+            .practitioners-label svg path:first-child {
+                fill: white !important;
+            }
+            
+            .practitioners-label svg path:last-child {
+                fill: var(--green-deep) !important;
             }
             
             .practitioners-title {
-                font-size: 28px;
+                font-size: 28px !important;
+                line-height: 1.2 !important;
+                margin: 0 0 16px 0 !important;
+                color: white !important;
+                display: block !important;
+                white-space: normal !important;
+                word-wrap: break-word !important;
+                overflow-wrap: break-word !important;
+                max-width: 100% !important;
+                width: 100% !important;
             }
             
             .practitioners-desc {
-                font-size: 15px;
+                font-size: 15px !important;
+                line-height: 1.6 !important;
+                margin: 0 0 24px 0 !important;
+                max-width: 100% !important;
+                width: 100% !important;
+                color: rgba(255,255,255,0.8) !important;
+                display: block !important;
+                white-space: normal !important;
+                word-wrap: break-word !important;
+                overflow-wrap: break-word !important;
+            }
+            
+            .practitioners-cta {
+                display: none !important;
             }
             
             .practitioners-devices {
-                min-height: auto;
-                flex-direction: column;
-                align-items: center;
+                display: flex !important;
+                justify-content: center !important;
+                min-height: auto !important;
             }
             
-            /* Hide dashboard on mobile, show only phone */
+            /* Hide all dots on mobile */
+            .practitioners-dots,
+            .practitioners-mobile-dots {
+                display: none !important;
+            }
+            
+            /* Slide 1: Phone only */
             .dash-panel {
-                display: none;
+                display: none !important;
             }
             
             .prac-phone {
-                position: relative;
-                right: auto;
-                top: auto;
-                transform: none;
-                width: 100%;
-                max-width: 300px;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+                top: auto !important;
+                transform: none !important;
+                width: 200px !important;
+                display: block !important;
             }
             
-            .practitioners-dots {
-                display: none;
+            .prac-phone-frame {
+                border-radius: 32px !important;
+                padding: 8px !important;
             }
             
+            .prac-phone-screen {
+                height: auto !important;
+                aspect-ratio: 9/19.5 !important;
+                border-radius: 24px !important;
+            }
+            
+            /* Slide 2: Photo Collage */
             .practitioners-collage {
-                gap: 12px;
-                justify-content: center;
-                height: auto;
+                display: flex !important;
+                gap: 10px !important;
+                height: auto !important;
+                justify-content: center !important;
             }
             
-            .collage-col-1 {
-                padding-top: 30px;
+            .collage-col { display: flex !important; flex-direction: column !important; gap: 10px !important; }
+            .collage-col-1 { padding-top: 15px !important; }
+            .collage-col-2 { padding-top: 0 !important; }
+            .collage-col-3 { padding-top: 30px !important; }
+            
+            .collage-photo { 
+                display: block !important; 
+                border-radius: 12px !important;
+                overflow: hidden !important;
+            }
+            .collage-col-1 .collage-photo { width: 90px !important; height: 120px !important; }
+            .collage-col-2 .collage-photo:first-child { width: 80px !important; height: 100px !important; }
+            .collage-col-2 .collage-photo:last-child { width: 80px !important; height: 110px !important; }
+            .collage-col-3 .collage-photo { width: 80px !important; height: 100px !important; }
+            
+            .collage-photo img {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+                display: block !important;
             }
             
-            .collage-col-2 {
-                padding-top: 0;
+            /* Slide 3: Tools - Centered Layout */
+            .tools-slide-centered {
+                padding: 30px 20px !important;
             }
             
+            .tools-header-centered {
+                margin-bottom: 24px !important;
+            }
+            
+            .tools-header-centered .practitioners-title {
+                white-space: normal !important;
+            }
+            
+            .tools-header-centered .practitioners-desc {
+                white-space: normal !important;
+            }
+            
+            .tools-phone-centered {
+                display: flex !important;
+                margin-bottom: 24px !important;
+            }
+            
+            .tools-phone-centered .tools-phone {
+                display: block !important;
+                width: 200px !important;
+            }
+            
+            .tools-features-row {
+                flex-direction: column !important;
+                gap: 20px !important;
+                padding-top: 24px !important;
+            }
+            
+            .tools-feature-item {
+                max-width: 100% !important;
+            }
+            
+            .tools-feature-item strong {
+                font-size: 15px !important;
+            }
+            
+            .tools-feature-item p {
+                font-size: 13px !important;
+            }
+            
+            /* Hide old tools container */
+            .tools-phone-container {
+                display: none !important;
+            }
+            
+            .feature-highlights {
+                display: none !important;
+            }
+            
+            /* Features Grid Mobile - Horizontal Swipe */
+            .features-grid-slide {
+                padding: 30px 0 !important;
+            }
+            
+            .features-grid-header {
+                margin-bottom: 24px !important;
+                padding: 0 20px !important;
+            }
+            
+            .features-grid-header .practitioners-title {
+                white-space: normal !important;
+            }
+            
+            .features-grid-header .practitioners-desc {
+                white-space: normal !important;
+            }
+            
+            .features-grid {
+                display: flex !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory !important;
+                -webkit-overflow-scrolling: touch !important;
+                gap: 12px !important;
+                padding: 0 20px 16px !important;
+                scrollbar-width: none !important;
+                -ms-overflow-style: none !important;
+            }
+            
+            .features-grid::-webkit-scrollbar {
+                display: none !important;
+            }
+            
+            .feature-card {
+                flex: 0 0 220px !important;
+                scroll-snap-align: center !important;
+                background: rgba(255,255,255,0.05) !important;
+                border-radius: 14px !important;
+                padding: 20px 16px !important;
+            }
+            
+            .feature-card-icon {
+                width: 40px !important;
+                height: 40px !important;
+                margin-bottom: 10px !important;
+            }
+            
+            .feature-card-icon svg {
+                width: 18px !important;
+                height: 18px !important;
+            }
+            
+            .feature-card h3 {
+                font-size: 14px !important;
+                margin-bottom: 6px !important;
+            }
+            
+            .feature-card p {
+                font-size: 12px !important;
+                line-height: 1.5 !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .practitioners-slide {
+                padding: 32px 16px 20px;
+            }
+            
+            .tools-slide-centered {
+                padding: 32px 16px !important;
+            }
+            
+            .tools-phone-centered .tools-phone {
+                width: 200px !important;
+            }
+            
+            .practitioners-title {
+                font-size: 24px;
+            }
+            
+            .practitioners-desc {
+                font-size: 14px;
+            }
+            
+            /* Features Grid 480px - Smaller swipeable cards */
+            .features-grid-slide {
+                padding: 20px 0 !important;
+            }
+            
+            .features-grid-header {
+                margin-bottom: 20px !important;
+                padding: 0 16px !important;
+            }
+            
+            .features-grid {
+                gap: 10px !important;
+                padding: 0 16px 12px !important;
+            }
+            
+            .feature-card {
+                flex: 0 0 200px !important;
+                padding: 16px 14px !important;
+                border-radius: 12px !important;
+            }
+            
+            .feature-card-icon {
+                width: 36px !important;
+                height: 36px !important;
+                margin-bottom: 8px !important;
+            }
+            
+            .feature-card-icon svg {
+                width: 16px !important;
+                height: 16px !important;
+            }
+            
+            .feature-card h3 {
+                font-size: 13px !important;
+                margin-bottom: 4px !important;
+            }
+            
+            .feature-card p {
+                font-size: 11px !important;
+                line-height: 1.4 !important;
+            }
+            
+            .prac-phone {
+                width: 180px;
+            }
+            
+            .prac-phone-screen {
+                height: auto !important;
+                aspect-ratio: 9/19.5 !important;
+            }
+            
+            /* Hide third column on very small screens */
             .collage-col-3 {
                 display: none;
             }
             
-            .collage-col-1 .collage-photo {
-                width: 130px;
-                height: 170px;
-            }
-            
-            .collage-col-2 .collage-photo:first-child {
-                width: 110px;
-                height: 120px;
-            }
-            
-            .collage-col-2 .collage-photo:last-child {
-                width: 110px;
-                height: 140px;
-            }
-            
-            .tools-phone-container {
-                padding-left: 0;
-            }
+            .collage-col-1 .collage-photo { width: 110px; height: 150px; }
+            .collage-col-2 .collage-photo:first-child { width: 95px; height: 115px; }
+            .collage-col-2 .collage-photo:last-child { width: 95px; height: 130px; }
             
             .tools-phone {
-                width: 100%;
-                max-width: 300px;
-            }
-            
-            .feature-highlights {
-                gap: 16px;
-                margin: 24px 0;
-            }
-            
-            .feature-item {
-                justify-content: center;
-            }
-            
-            .feature-icon {
-                width: 44px;
-                height: 44px;
+                width: 180px;
             }
         }
         
@@ -7647,7 +8697,7 @@
            ============================================= */
         @media (max-width: 1024px) {
             .hero {
-                padding: 134px 0 0;
+                padding: 134px 0 60px;
             }
             
             .hero-card {
@@ -7658,45 +8708,36 @@
             
             .hero-layout,
             .healers-layout {
-                grid-template-columns: 1fr;
                 gap: 40px;
-                text-align: center;
-                max-width: 100%;
-            }
-            
-            .hero-text {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
             }
             
             .hero-text-glow {
                 display: none;
             }
             
-            .hero-subtitle {
-                max-width: 480px;
-                text-align: center;
-            }
-            
             .hero-ctas {
-                justify-content: center;
+                flex-wrap: wrap;
             }
             
             .hero-stats {
-                justify-content: center;
                 margin-top: 32px;
             }
             
             .hero-visual {
-                order: -1;
-                min-height: 400px;
+                /* No min-height needed - phone defines its own height */
             }
             
             .hero-iphone-frame {
                 width: 240px;
                 height: 500px;
                 border-radius: 44px;
+            }
+            
+            .heelar-star-phone {
+                width: 55px;
+                height: 55px;
+                top: -35px;
+                right: -30px;
             }
             
             .hero-iphone-screen {
@@ -7736,6 +8777,10 @@
         }
         
         @media (max-width: 768px) {
+            nav {
+                top: 30px !important;
+            }
+            
             .nav-right {
                 gap: 12px;
             }
@@ -7750,7 +8795,7 @@
             }
             
             .hero {
-                padding: 124px 0 0;
+                padding: 130px 0 50px;
             }
             
             .hero-card {
@@ -7763,6 +8808,15 @@
                 padding: 0 20px;
             }
             
+            /* Single-line banner on mobile */
+            .announcement-banner {
+                padding: 8px 16px !important;
+            }
+            
+            .announcement-banner-content {
+                gap: 10px !important;
+            }
+            
             .announcement-banner-text {
                 font-size: 13px;
             }
@@ -7771,30 +8825,64 @@
                 font-size: 13px;
             }
             
+            /* Mobile hero: reorder - heading above phone, CTAs below */
+            .hero-layout {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0;
+                text-align: center;
+            }
+            
+            .hero-text {
+                display: contents;
+                text-align: center;
+            }
+            
+            .hero-badge {
+                order: 1;
+                margin-bottom: 16px;
+            }
+            
+            .hero-layout h1 {
+                order: 2;
+                text-align: center;
+            }
+            
+            .hero-layout .hero-subtitle {
+                order: 3;
+                margin-bottom: 16px;
+                text-align: center;
+            }
+            
+            .hero-stats {
+                order: 4;
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-top: 0;
+                margin-bottom: 40px;
+            }
+            
+            .hero-visual {
+                order: 5;
+                margin-bottom: 40px;
+            }
+            
+            .hero-ctas {
+                order: 6;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 20px;
+            }
+            
             .hero h1 {
                 font-size: 26px;
-                margin-bottom: 12px;
+                margin-bottom: 16px;
             }
             
             .hero-subtitle {
                 font-size: 13px;
-                margin-bottom: 20px;
-            }
-            
-            .hero-visual {
-                min-height: 400px;
-            }
-            
-            .hero-ctas {
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-            }
-            
-            .hero-stats {
-                flex-wrap: wrap;
-                justify-content: center;
-                margin-top: 24px;
             }
             
             .hero-stat {
@@ -7810,6 +8898,13 @@
                 width: 220px;
                 height: 460px;
                 border-radius: 40px;
+            }
+            
+            .heelar-star-phone {
+                width: 48px;
+                height: 48px;
+                top: -30px;
+                right: -25px;
             }
             
             .hero-iphone-screen {
@@ -8044,12 +9139,7 @@
         @media (max-width: 480px) {
             /* Banner 480px */
             .announcement-banner {
-                padding: 10px 16px;
-            }
-            
-            .announcement-banner-content {
-                flex-direction: column;
-                gap: 6px;
+                padding: 7px 12px !important;
             }
             
             .announcement-banner-text {
@@ -8058,6 +9148,10 @@
             
             .announcement-banner-link {
                 font-size: 12px;
+            }
+            
+            nav {
+                top: 28px !important;
             }
             
             /* Footer 480px */
@@ -8168,6 +9262,11 @@
                 <path d="M256.772 0.770508C256.772 0.770508 263.988 62.4115 289.402 118.644C301.187 144.72 332.255 180.306 351.142 197.751C402.391 245.087 512.5 253.36 512.5 253.36C512.5 253.36 421.447 276.474 365.953 306.397C334.489 327.436 317.144 355.29 305.763 377.214C278.561 429.61 256.638 512.771 256.638 512.771C256.638 512.771 248.832 431.129 213.414 376.654C196.691 350.934 176.926 323.222 149.893 306.675C84.2754 266.511 0.5 253.245 0.5 253.245C0.5 253.245 100.975 245.116 149.299 208.704C180.861 184.922 194.47 173.233 214.052 138.612C240.712 91.4752 256.772 0.770508 256.772 0.770508Z" fill="#0f4e29"/>
                 <path d="M255.47 121.148C255.47 121.148 260.369 153.805 273.504 183.596C279.596 197.411 295.653 216.264 305.415 225.506C331.903 250.585 388.813 254.967 388.813 254.967C388.813 254.967 353.937 260.487 324.438 274.509C313.355 279.777 293.5 299.752 286.391 310.616C264.021 344.804 256.8 392.401 256.8 392.401C256.8 392.401 250.676 350.2 234.23 320.287C225.295 304.036 215.371 291.979 201.399 283.213C167.485 261.935 124.185 254.907 124.185 254.907C124.185 254.907 176.116 250.6 201.092 231.309C217.405 218.709 224.439 212.517 234.56 194.175C248.339 169.203 255.47 121.148 255.47 121.148Z" fill="white"/>
             </symbol>
+            <!-- Heelar Star Inverted (white outer, green inner) for dark backgrounds -->
+            <symbol id="heelar-star-inverted" viewBox="0 0 513 513">
+                <path d="M256.772 0.770508C256.772 0.770508 263.988 62.4115 289.402 118.644C301.187 144.72 332.255 180.306 351.142 197.751C402.391 245.087 512.5 253.36 512.5 253.36C512.5 253.36 421.447 276.474 365.953 306.397C334.489 327.436 317.144 355.29 305.763 377.214C278.561 429.61 256.638 512.771 256.638 512.771C256.638 512.771 248.832 431.129 213.414 376.654C196.691 350.934 176.926 323.222 149.893 306.675C84.2754 266.511 0.5 253.245 0.5 253.245C0.5 253.245 100.975 245.116 149.299 208.704C180.861 184.922 194.47 173.233 214.052 138.612C240.712 91.4752 256.772 0.770508 256.772 0.770508Z" fill="white"/>
+                <path d="M255.47 121.148C255.47 121.148 260.369 153.805 273.504 183.596C279.596 197.411 295.653 216.264 305.415 225.506C331.903 250.585 388.813 254.967 388.813 254.967C388.813 254.967 353.937 260.487 324.438 274.509C313.355 279.777 293.5 299.752 286.391 310.616C264.021 344.804 256.8 392.401 256.8 392.401C256.8 392.401 250.676 350.2 234.23 320.287C225.295 304.036 215.371 291.979 201.399 283.213C167.485 261.935 124.185 254.907 124.185 254.907C124.185 254.907 176.116 250.6 201.092 231.309C217.405 218.709 224.439 212.517 234.56 194.175C248.339 169.203 255.47 121.148 255.47 121.148Z" fill="#0f4e29"/>
+            </symbol>
             <!-- Simple Star (for small accents) -->
             <symbol id="star" viewBox="0 0 100 100">
                 <path d="M50 0 L54 46 L100 50 L54 54 L50 100 L46 54 L0 50 L46 46 Z"/>
@@ -8241,9 +9340,9 @@
          ========================================== -->
     <div class="announcement-banner">
         <div class="announcement-banner-content">
-            <span class="announcement-banner-text"><strong>Now Recruiting Healers</strong> — Join as a founding practitioner</span>
+            <span class="announcement-banner-text"><strong>Now Recruiting Practitioners</strong></span>
             <a href="#healers" class="announcement-banner-link">
-                Apply Now
+                Apply
                 <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12"/>
                     <polyline points="12 5 19 12 12 19"/>
@@ -8266,7 +9365,7 @@
                 </svg>
             </a>
             <div class="nav-right">
-                <a href="#healers" class="nav-link">For Healers</a>
+                <a href="#healers" class="nav-link">For practitioners</a>
                 <button class="btn btn-primary" onclick="openModal('client')">Join Waitlist</button>
             </div>
         </div>
@@ -8288,14 +9387,14 @@
                     <div class="hero-text">
                         <div class="hero-text-glow"></div>
                         <div class="hero-badge">
-                            <span class="badge-dot"></span>
+                            <svg class="badge-star" width="18" height="18" viewBox="0 0 513 513"><use href="#heelar-star"/></svg>
                             Welcome to Heelar
                         </div>
                         <h1>
                             For those searching to create change <em>within.</em>
                         </h1>
                         <p class="hero-subtitle">
-                            Heelar is embarking on a journey to allow those seeking to make a change in their lives to find healers through a unique global platform.
+                            Heelar is embarking on a journey to allow those seeking to make a change in their lives to find practitioners through a unique global platform.
                         </p>
                         <div class="hero-ctas">
                             <button class="btn btn-primary" onclick="openModal('client')">
@@ -8318,6 +9417,8 @@
                     <div class="hero-visual">
                         <!-- High Fidelity iPhone 15 Pro Mockup -->
                         <div class="hero-phone-container">
+                            <!-- Heelar Star - sits on phone corner -->
+                            <svg class="heelar-star-phone" viewBox="0 0 513 513"><use href="#heelar-star"/></svg>
                             <div class="hero-glow"></div>
                             <div class="hero-iphone-frame">
                                 <div class="hero-iphone-screen">
@@ -8491,16 +9592,18 @@
         <div class="about-stripe-left">
             <!-- Section 1: About -->
             <div class="about-stripe-text" data-index="0">
-                <span class="about-stripe-label">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
-                    About Heelar
-                </span>
-                <h2 class="about-stripe-title">Creating change within</h2>
-                <p class="about-stripe-desc">A healing platform connecting you with vetted practitioners across 200+ modalities. Find your path to wellness through authentic human connection.</p>
-                <a href="#waitlist" class="about-stripe-cta">
-                    Get early access
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
+                <div class="about-stripe-text-inner">
+                    <span class="about-stripe-label">
+                        <svg width="18" height="18" viewBox="0 0 513 513"><use href="#heelar-star"/></svg>
+                        About Heelar
+                    </span>
+                    <h2 class="about-stripe-title">Creating change within</h2>
+                    <p class="about-stripe-desc">A healing platform connecting you with vetted practitioners across 200+ modalities. Find your path to wellness through authentic human connection.</p>
+                    <a href="#waitlist" class="about-stripe-cta">
+                        Get early access
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
                 <!-- Mobile Phone Mockup - Exact copy of desktop -->
                 <div class="mobile-phone-mockup">
                     <div class="mobile-phone-wrapper">
@@ -8588,16 +9691,18 @@
             
             <!-- Section 2: Vision -->
             <div class="about-stripe-text" data-index="1">
-                <span class="about-stripe-label">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-                    Our Vision
-                </span>
-                <h2 class="about-stripe-title">Embracing healing as a way of life</h2>
-                <p class="about-stripe-desc">We envision a world where authenticity is celebrated, vulnerability is embraced, and individuals are empowered to speak their truth without fear.</p>
-                <a href="#waitlist" class="about-stripe-cta">
-                    Join the movement
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
+                <div class="about-stripe-text-inner">
+                    <span class="about-stripe-label">
+                        <svg width="18" height="18" viewBox="0 0 513 513"><use href="#heelar-star"/></svg>
+                        Our vision
+                    </span>
+                    <h2 class="about-stripe-title">Embracing healing as a way of life</h2>
+                    <p class="about-stripe-desc">We envision a world where authenticity is celebrated, vulnerability is embraced, and individuals are empowered to speak their truth without fear.</p>
+                    <a href="#waitlist" class="about-stripe-cta">
+                        Join the movement
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
                 <!-- Mobile Phone Mockup - Exact copy of desktop -->
                 <div class="mobile-phone-mockup">
                     <div class="mobile-phone-wrapper">
@@ -8674,24 +9779,26 @@
             
             <!-- Section 3: Four Pillars -->
             <div class="about-stripe-text" data-index="2">
-                <span class="about-stripe-label">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                    The Four Pillars
-                </span>
-                <h2 class="about-stripe-title">Heart, Body, Mind & Soul</h2>
-                <p class="about-stripe-desc">Our approach to wellness addresses every dimension of your being. True healing happens when all four pillars are nurtured together.</p>
-                <a href="#pillars" class="about-stripe-cta">
-                    Explore the pillars
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-                <!-- Mobile Phone Mockup - Exact copy of desktop -->
+                <div class="about-stripe-text-inner">
+                    <span class="about-stripe-label">
+                        <svg width="18" height="18" viewBox="0 0 513 513"><use href="#heelar-star"/></svg>
+                        The four pillars
+                    </span>
+                    <h2 class="about-stripe-title">Heart, Body, Mind & Soul</h2>
+                    <p class="about-stripe-desc">Our approach to wellness addresses every dimension of your being. True healing happens when all four pillars are nurtured together.</p>
+                    <a href="#pillars" class="about-stripe-cta">
+                        Explore the pillars
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+                <!-- Mobile Phone Mockup - All Healing Screen -->
                 <div class="mobile-phone-mockup">
                     <div class="mobile-phone-wrapper">
                         <div class="stripe-iphone-frame">
                             <div class="stripe-iphone-screen mint-screen">
                                 <div class="stripe-dynamic-island"></div>
                                 <div class="stripe-status-bar">
-                                    <span class="time">9:41</span>
+                                    <span class="time">19:27</span>
                                     <div class="status-right">
                                         <div class="signal-bars"><span></span><span></span><span></span><span></span></div>
                                         <div class="wifi-icon"></div>
@@ -8699,58 +9806,53 @@
                                     </div>
                                 </div>
                                 
-                                <!-- Groups Header -->
-                                <div class="groups-nav">
+                                <!-- All Healing Header -->
+                                <div class="healing-header">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-                                    <strong>Community Groups</strong>
-                                    <svg viewBox="0 0 24 24" fill="var(--green-deep)"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+                                    <strong>All Healing</strong>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
                                 </div>
                                 
-                                <!-- Search -->
-                                <div class="groups-search-bar">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-                                    <span>Search...</span>
+                                <!-- Tabs -->
+                                <div class="healing-tabs">
+                                    <span class="healing-tab active">Healing</span>
+                                    <span class="healing-tab">Courses</span>
+                                    <span class="healing-tab">Workshops</span>
                                 </div>
                                 
-                                <!-- Four Pillars -->
-                                <div class="pillars-row">
-                                    <div class="pillar-item">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--green-deep)" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                                        <span>Heart</span>
-                                    </div>
-                                    <div class="pillar-item">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--green-deep)" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                                        <span>Body</span>
-                                    </div>
-                                    <div class="pillar-item">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--green-deep)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-                                        <span>Mind</span>
-                                    </div>
-                                    <div class="pillar-item">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--green-deep)" stroke-width="1.5"><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 007.92 12.446A9 9 0 1112 3z"/></svg>
-                                        <span>Soul</span>
-                                    </div>
+                                <!-- Filters - single line -->
+                                <div class="healing-filters">
+                                    <span class="healing-pill active">All</span>
+                                    <span class="healing-pill">EFT</span>
+                                    <span class="healing-pill">Crystal</span>
+                                    <span class="healing-pill">Reiki</span>
+                                    <span class="healing-pill">UK</span>
+                                    <span class="healing-pill">USA</span>
                                 </div>
                                 
-                                <!-- Your Groups -->
-                                <div class="groups-section-title">Your Groups</div>
-                                <div class="groups-scroll">
-                                    <div class="group-thumb">
-                                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=100&h=100&fit=crop" alt="">
-                                        <span>Akashic Reco...</span>
+                                <!-- Healer Card 1 -->
+                                <div class="healer-card">
+                                    <img class="healer-card-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop&crop=face" alt="Amit Kumar">
+                                    <div class="healer-card-info">
+                                        <div class="healer-card-name">Amit Kumar</div>
+                                        <div class="healer-card-location">Location</div>
+                                        <div class="healer-card-modalities"><strong>Crystal</strong> <span class="dot">•</span> Reiki <span class="dot">•</span> Energy</div>
+                                        <div class="healer-card-sessions">02 Sessions completed</div>
                                     </div>
-                                    <div class="group-thumb">
-                                        <img src="https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=100&h=100&fit=crop" alt="">
-                                        <span>Soul Healing</span>
-                                    </div>
-                                    <div class="group-thumb">
-                                        <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=100&h=100&fit=crop" alt="">
-                                        <span>Light Langua...</span>
-                                    </div>
+                                    <span class="healer-card-followers">165 Followers</span>
                                 </div>
                                 
-                                <!-- Popular -->
-                                <div class="groups-section-title">Popular</div>
+                                <!-- Healer Card 2 -->
+                                <div class="healer-card">
+                                    <img class="healer-card-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&fit=crop&crop=face" alt="Pankaj">
+                                    <div class="healer-card-info">
+                                        <div class="healer-card-name">Pankaj</div>
+                                        <div class="healer-card-location">Location</div>
+                                        <div class="healer-card-modalities"><strong>EFT</strong> <span class="dot">•</span> Soul Healing <span class="dot">•</span> Breathwork</div>
+                                        <div class="healer-card-sessions">02 Sessions completed</div>
+                                    </div>
+                                    <span class="healer-card-followers">165 Followers</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -8759,73 +9861,108 @@
             
             <!-- Section 4: Experience -->
             <div class="about-stripe-text" data-index="3">
-                <span class="about-stripe-label">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
-                    The Experience
-                </span>
-                <h2 class="about-stripe-title">Your healing journey, simplified</h2>
-                <p class="about-stripe-desc">Discover practitioners, book sessions, join circles, and reflect through journaling—all in one place designed to support your growth.</p>
-                <a href="#waitlist" class="about-stripe-cta">
-                    See how it works
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-                <!-- Mobile Phone Mockup - Exact copy of desktop -->
+                <div class="about-stripe-text-inner">
+                    <span class="about-stripe-label">
+                        <svg width="18" height="18" viewBox="0 0 513 513"><use href="#heelar-star"/></svg>
+                        The experience
+                    </span>
+                    <h2 class="about-stripe-title">Your healing journey, simplified</h2>
+                    <p class="about-stripe-desc">Discover practitioners, book sessions, join circles, and reflect through journaling—all in one place designed to support your growth.</p>
+                    <a href="#waitlist" class="about-stripe-cta">
+                        See how it works
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+                <!-- Mobile Phone Mockup - Session Details -->
                 <div class="mobile-phone-mockup">
                     <div class="mobile-phone-wrapper">
                         <div class="stripe-iphone-frame">
-                            <div class="stripe-iphone-screen">
+                            <div class="stripe-iphone-screen" style="background: #fff; display: flex; flex-direction: column;">
                                 <div class="stripe-dynamic-island"></div>
-                                <div class="stripe-status-bar">
-                                    <span class="time">9:41</span>
-                                    <div class="status-right">
-                                        <div class="signal-bars"><span></span><span></span><span></span><span></span></div>
-                                        <div class="wifi-icon"></div>
-                                        <div class="battery-icon-sm"></div>
-                                    </div>
-                                </div>
                                 
-                                <!-- Chat Header -->
-                                <div class="chat-nav">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=40&h=40&fit=crop&crop=face" alt="">
-                                    <div class="chat-user-info">
-                                        <strong>Martha Craig</strong>
-                                        <span>tap here for contact info</span>
-                                    </div>
-                                </div>
-                                
-                                <!-- Messages -->
-                                <div class="chat-area">
-                                    <div class="bubble received">Good morning! <span class="time">10:18</span></div>
-                                    <div class="bubble received">Japan looks amazing! <span class="time">10:19</span></div>
-                                    <div class="bubble sent">It's morning in Tokyo 🌅 <span class="time">11:41</span></div>
-                                    <div class="bubble received">What is the most popular meal? <span class="time">11:45</span></div>
-                                </div>
-                                
-                                <!-- Shared Workshop -->
-                                <div class="shared-workshop">
-                                    <span class="live-badge">LIVE</span>
-                                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=200&h=90&fit=crop" alt="">
-                                    <div class="workshop-details">
-                                        <span class="type">Workshop: 16 Aug</span>
-                                        <strong>Soul Discovery</strong>
-                                        <div class="workshop-meta">
-                                            <span>🌐 English</span>
-                                            <span>⏱ 1 Day</span>
+                                <!-- Session Hero with image background -->
+                                <div class="session-hero">
+                                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&h=400&fit=crop" alt="Crystal Healing Session">
+                                    <div class="session-hero-overlay">
+                                        <!-- Status bar inside overlay -->
+                                        <div class="stripe-status-bar" style="position: absolute; top: 0; left: 0; right: 0; padding: 8px 14px;">
+                                            <span class="time" style="color: white;">19:27</span>
+                                            <div class="status-right">
+                                                <div class="signal-bars light"><span></span><span></span><span></span><span></span></div>
+                                                <div class="wifi-icon light"></div>
+                                                <div class="battery-icon-sm light"></div>
+                                            </div>
                                         </div>
-                                        <div class="workshop-host">
-                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="">
-                                            <span>Jay Sangi</span>
-                                            <span class="price">£65</span>
+                                        
+                                        <!-- Title section at top -->
+                                        <div class="session-hero-top">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+                                            <div class="session-hero-title">
+                                                <span class="label">Healing Session</span>
+                                                <h3>Crystal Healing</h3>
+                                            </div>
+                                            <div style="width: 18px;"></div>
+                                        </div>
+                                        
+                                        <!-- Bottom info section -->
+                                        <div class="session-hero-bottom">
+                                            <div>
+                                                <div class="session-hero-info">
+                                                    <span>🌐 English</span>
+                                                    <span>⏱ 45m</span>
+                                                    <span>👤 1:1</span>
+                                                </div>
+                                                <div class="session-practitioner">
+                                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face" alt="Jay Sangi">
+                                                    <div class="session-practitioner-info">
+                                                        <strong>Jay Sangi</strong>
+                                                        <span>Location</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="session-price-badge">
+                                                £65
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Dots at bottom of hero -->
+                                        <div class="session-dots">
+                                            <span class="active"></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <!-- Input -->
-                                <div class="chat-input-bar">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg>
-                                    <span>Type your message</span>
-                                    <svg viewBox="0 0 24 24" fill="var(--green-deep)"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                                <!-- Actions Bar - separate from hero -->
+                                <div class="session-actions">
+                                    <div class="like">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+                                        1.2k
+                                    </div>
+                                    <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+                                    <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                                    <span class="follow-btn">Follow</span>
+                                </div>
+                                
+                                <!-- Content -->
+                                <div class="session-content">
+                                    <div class="session-section">
+                                        <h4>Overview</h4>
+                                        <p>Crystal healing entails crystals being placed on your chakras. They are intuitively chosen and will combine with your energies to release anything that is being held that doesnt serve you.</p>
+                                    </div>
+                                    
+                                    <div class="session-section">
+                                        <h4>Benefits</h4>
+                                        <p>Allow you to feel calmer and lighter and a sense of tranquility.</p>
+                                    </div>
+                                    
+                                    <div class="session-section">
+                                        <h4>Your Environment</h4>
+                                        <p>A quiet space, calm space where you can lie down and fully relax.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -9024,7 +10161,7 @@
                     </div>
                 </div>
                 
-                <!-- Scene 3: Community Groups -->
+                <!-- Scene 3: All Healing -->
                 <div class="stripe-scene" data-index="2">
                     <div class="floating-icon icon-tl" style="--delay: 0.1s">
                         <svg viewBox="0 0 24 24" fill="none" stroke="var(--green-deep)" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
@@ -9043,58 +10180,53 @@
                                     </div>
                                 </div>
                                 
-                                <!-- Groups Header -->
-                                <div class="groups-nav">
+                                <!-- All Healing Header -->
+                                <div class="healing-header">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-                                    <strong>Community Groups</strong>
-                                    <svg viewBox="0 0 24 24" fill="var(--green-deep)"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+                                    <strong>All Healing</strong>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
                                 </div>
                                 
-                                <!-- Search -->
-                                <div class="groups-search-bar">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-                                    <span>Search...</span>
+                                <!-- Tabs -->
+                                <div class="healing-tabs">
+                                    <span class="healing-tab active">Healing</span>
+                                    <span class="healing-tab">Courses</span>
+                                    <span class="healing-tab">Workshops</span>
                                 </div>
                                 
-                                <!-- Four Pillars -->
-                                <div class="pillars-row">
-                                    <div class="pillar-item">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--green-deep)" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                                        <span>Heart</span>
-                                    </div>
-                                    <div class="pillar-item">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--green-deep)" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                                        <span>Body</span>
-                                    </div>
-                                    <div class="pillar-item">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--green-deep)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-                                        <span>Mind</span>
-                                    </div>
-                                    <div class="pillar-item">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--green-deep)" stroke-width="1.5"><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 007.92 12.446A9 9 0 1112 3z"/></svg>
-                                        <span>Soul</span>
-                                    </div>
+                                <!-- Filters - single line -->
+                                <div class="healing-filters">
+                                    <span class="healing-pill active">All</span>
+                                    <span class="healing-pill">EFT</span>
+                                    <span class="healing-pill">Crystal</span>
+                                    <span class="healing-pill">Reiki</span>
+                                    <span class="healing-pill">UK</span>
+                                    <span class="healing-pill">USA</span>
                                 </div>
                                 
-                                <!-- Your Groups -->
-                                <div class="groups-section-title">Your Groups</div>
-                                <div class="groups-scroll">
-                                    <div class="group-thumb">
-                                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=100&h=100&fit=crop" alt="">
-                                        <span>Akashic Reco...</span>
+                                <!-- Healer Card 1 -->
+                                <div class="healer-card">
+                                    <img class="healer-card-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop&crop=face" alt="Amit Kumar">
+                                    <div class="healer-card-info">
+                                        <div class="healer-card-name">Amit Kumar</div>
+                                        <div class="healer-card-location">Location</div>
+                                        <div class="healer-card-modalities"><strong>Crystal</strong> <span class="dot">•</span> Reiki <span class="dot">•</span> Energy</div>
+                                        <div class="healer-card-sessions">02 Sessions completed</div>
                                     </div>
-                                    <div class="group-thumb">
-                                        <img src="https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=100&h=100&fit=crop" alt="">
-                                        <span>Soul Healing</span>
-                                    </div>
-                                    <div class="group-thumb">
-                                        <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=100&h=100&fit=crop" alt="">
-                                        <span>Light Langua...</span>
-                                    </div>
+                                    <span class="healer-card-followers">165 Followers</span>
                                 </div>
                                 
-                                <!-- Popular -->
-                                <div class="groups-section-title">Popular</div>
+                                <!-- Healer Card 2 -->
+                                <div class="healer-card">
+                                    <img class="healer-card-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&fit=crop&crop=face" alt="Pankaj">
+                                    <div class="healer-card-info">
+                                        <div class="healer-card-name">Pankaj</div>
+                                        <div class="healer-card-location">Location</div>
+                                        <div class="healer-card-modalities"><strong>EFT</strong> <span class="dot">•</span> Soul Healing <span class="dot">•</span> Breathwork</div>
+                                        <div class="healer-card-sessions">02 Sessions completed</div>
+                                    </div>
+                                    <span class="healer-card-followers">165 Followers</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -9105,75 +10237,108 @@
                     </div>
                 </div>
                 
-                <!-- Scene 4: Chat -->
+                <!-- Scene 4: Session Details -->
                 <div class="stripe-scene" data-index="3">
                     <div class="floating-icon icon-tl" style="--delay: 0.1s">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--green-deep)" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--green-deep)" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                     </div>
                     
                     <div class="stripe-phone" style="--delay: 0s">
                         <div class="stripe-iphone-frame">
-                            <div class="stripe-iphone-screen">
+                            <div class="stripe-iphone-screen" style="background: #fff; display: flex; flex-direction: column;">
                                 <div class="stripe-dynamic-island"></div>
-                                <div class="stripe-status-bar">
-                                    <span class="time">9:41</span>
-                                    <div class="status-right">
-                                        <div class="signal-bars"><span></span><span></span><span></span><span></span></div>
-                                        <div class="wifi-icon"></div>
-                                        <div class="battery-icon-sm"></div>
-                                    </div>
-                                </div>
                                 
-                                <!-- Chat Header -->
-                                <div class="chat-nav">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=40&h=40&fit=crop&crop=face" alt="">
-                                    <div class="chat-user-info">
-                                        <strong>Martha Craig</strong>
-                                        <span>tap here for contact info</span>
-                                    </div>
-                                </div>
-                                
-                                <!-- Messages -->
-                                <div class="chat-area">
-                                    <div class="bubble received">Good morning! <span class="time">10:18</span></div>
-                                    <div class="bubble received">Japan looks amazing! <span class="time">10:19</span></div>
-                                    <div class="bubble sent">It's morning in Tokyo 🌅 <span class="time">11:41</span></div>
-                                    <div class="bubble received">What is the most popular meal? <span class="time">11:45</span></div>
-                                </div>
-                                
-                                <!-- Shared Workshop -->
-                                <div class="shared-workshop">
-                                    <span class="live-badge">LIVE</span>
-                                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=200&h=90&fit=crop" alt="">
-                                    <div class="workshop-details">
-                                        <span class="type">Workshop: 16 Aug</span>
-                                        <strong>Soul Discovery</strong>
-                                        <div class="workshop-meta">
-                                            <span>🌐 English</span>
-                                            <span>⏱ 1 Day</span>
+                                <!-- Session Hero with image background -->
+                                <div class="session-hero">
+                                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&h=400&fit=crop" alt="Crystal Healing Session">
+                                    <div class="session-hero-overlay">
+                                        <!-- Status bar inside overlay -->
+                                        <div class="stripe-status-bar" style="position: absolute; top: 0; left: 0; right: 0; padding: 8px 14px;">
+                                            <span class="time" style="color: white;">19:27</span>
+                                            <div class="status-right">
+                                                <div class="signal-bars light"><span></span><span></span><span></span><span></span></div>
+                                                <div class="wifi-icon light"></div>
+                                                <div class="battery-icon-sm light"></div>
+                                            </div>
                                         </div>
-                                        <div class="workshop-host">
-                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="">
-                                            <span>Jay Sangi</span>
-                                            <span class="price">£65</span>
+                                        
+                                        <!-- Title section at top -->
+                                        <div class="session-hero-top">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+                                            <div class="session-hero-title">
+                                                <span class="label">Healing Session</span>
+                                                <h3>Crystal Healing</h3>
+                                            </div>
+                                            <div style="width: 18px;"></div>
+                                        </div>
+                                        
+                                        <!-- Bottom info section -->
+                                        <div class="session-hero-bottom">
+                                            <div>
+                                                <div class="session-hero-info">
+                                                    <span>🌐 English</span>
+                                                    <span>⏱ 45m</span>
+                                                    <span>👤 1:1</span>
+                                                </div>
+                                                <div class="session-practitioner">
+                                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face" alt="Jay Sangi">
+                                                    <div class="session-practitioner-info">
+                                                        <strong>Jay Sangi</strong>
+                                                        <span>Location</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="session-price-badge">
+                                                £65
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Dots at bottom of hero -->
+                                        <div class="session-dots">
+                                            <span class="active"></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <!-- Input -->
-                                <div class="chat-input-bar">
-                                    <span class="plus-btn">+</span>
-                                    <div class="input-field"></div>
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+                                <!-- Actions Bar - separate from hero -->
+                                <div class="session-actions">
+                                    <div class="like">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+                                        1.2k
+                                    </div>
+                                    <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+                                    <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                                    <span class="follow-btn">Follow</span>
+                                </div>
+                                
+                                <!-- Content -->
+                                <div class="session-content">
+                                    <div class="session-section">
+                                        <h4>Overview</h4>
+                                        <p>Crystal healing entails crystals being placed on your chakras. They are intuitively chosen and will combine with your energies to release anything that is being held that doesnt serve you.</p>
+                                    </div>
+                                    
+                                    <div class="session-section">
+                                        <h4>Benefits</h4>
+                                        <p>Allow you to feel calmer and lighter and a sense of tranquility.</p>
+                                    </div>
+                                    
+                                    <div class="session-section">
+                                        <h4>Your Environment</h4>
+                                        <p>A quiet space, calm space where you can lie down and fully relax.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
                     <div class="floating-card share-float" style="--delay: 0.2s">
-                        <strong>Share content</strong>
-                        <span>Sessions, Courses & More</span>
+                        <strong>Book Now</strong>
+                        <span>Sessions from £30</span>
                     </div>
                 </div>
             </div>
@@ -9196,7 +10361,7 @@
             <!-- Header -->
             <div class="explore-header reveal">
                 <div class="explore-label">
-                    <svg width="16" height="16" viewBox="0 0 513 513"><use href="#heelar-star"/></svg>
+                    <svg width="18" height="18" viewBox="0 0 513 513"><use href="#heelar-star"/></svg>
                     Explore
                 </div>
                 <h2>Many ways to heal</h2>
@@ -9471,76 +10636,6 @@
 
 
     <!-- ==========================================
-         MEET OUR HEALERS SECTION - Gated Video Offer
-         ========================================== -->
-    <section class="aaron-section" id="healers-intro">
-        <div class="container">
-            <div class="aaron-wrapper">
-                <div class="aaron-card reveal-scale">
-                    <!-- Header at Top -->
-                    <div class="aaron-header">
-                        <div class="aaron-label">
-                            <svg width="20" height="20" viewBox="0 0 513 513"><use href="#heelar-star"/></svg>
-                            Our Community
-                        </div>
-                        <h2 class="aaron-heading">Meet our healers</h2>
-                        <p class="aaron-subheading">Vetted practitioners from around the world, each bringing their unique journey and expertise to help you heal</p>
-                    </div>
-                    
-                    <!-- Main Content: Profile + Gated Video -->
-                    <div class="aaron-profile-layout">
-                    <!-- Left: Profile -->
-                    <div class="aaron-profile-card">
-                        <div class="aaron-avatar">
-                            <span>Aaron's Photo</span>
-                        </div>
-                        <h3 class="aaron-name">Aaron Quinn</h3>
-                        <p class="aaron-role">Yoga & Meditation Teacher</p>
-                        <p class="aaron-bio">One of our founding healers, Aaron traded Dublin's corporate world for the mat. After two years studying with masters in Rishikesh, he now helps others find the same stillness he discovered.</p>
-                        <div class="aaron-tags">
-                            <span>Ashtanga</span>
-                            <span>Meditation</span>
-                            <span>Breathwork</span>
-                        </div>
-                    </div>
-                    
-                    <!-- Right: Gated Video -->
-                    <div class="aaron-video-container">
-                        <div class="aaron-video-player">
-                            <div class="aaron-video-frame">
-                                <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&h=450&fit=crop" alt="Yoga practice at sunset">
-                                <div class="aaron-video-overlay"></div>
-                                
-                                <!-- Lock/Gate Overlay -->
-                                <div class="aaron-gate-overlay">
-                                    <div class="aaron-gate-icon">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                                            <path d="M7 11V7a5 5 0 0110 0v4"/>
-                                        </svg>
-                                    </div>
-                                    <h4 class="aaron-gate-title">A 20-Minute Grounding Practice</h4>
-                                    <p class="aaron-gate-desc">Join the waitlist and get free access to this exclusive guided session from one of our healers.</p>
-                                    
-                                    <form class="aaron-signup-form" id="aaronSignupForm">
-                                        <input type="email" placeholder="Enter your email" required class="aaron-email-input">
-                                        <button type="submit" class="aaron-submit-btn">
-                                            Unlock Free Video
-                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                <path d="M5 12h14M12 5l7 7-7 7"/>
-                                            </svg>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==========================================
          FOR HEALERS SECTION - Split Layout
          ========================================== -->
     <!-- ==========================================
@@ -9549,17 +10644,18 @@
     <section class="practitioners-section" id="healers">
         <div class="practitioners-sticky-container">
             <div class="practitioners-sticky">
+                <div class="practitioners-slides-wrapper">
                 <!-- Slide 1 -->
                 <div class="practitioners-slide active" data-slide="0">
                     <div class="practitioners-slide-inner">
                         <!-- Left: Text Content -->
                         <div class="practitioners-text">
                             <div class="practitioners-label">
-                                <svg width="20" height="20" viewBox="0 0 513 513"><use href="#heelar-star"/></svg>
-                                For Practitioners
+                                <svg width="18" height="18" viewBox="0 0 513 513"><use href="#heelar-star-inverted"/></svg>
+                                For practitioners
                             </div>
                             <h2 class="practitioners-title">Managing your healing business in a simple platform</h2>
-                            <p class="practitioners-desc">Designed by healers, for healers. Heelar gives you the guidance, data and innovation you need to manage your business.</p>
+                            <p class="practitioners-desc">Designed by practitioners, for practitioners. Heelar gives you the guidance, data and innovation you need to manage your business.</p>
                             
                             <a href="#" class="practitioners-cta" onclick="openModal('practitioner'); return false;">
                                 Apply as a Practitioner
@@ -9757,8 +10853,20 @@
                                 </div>
                             </div>
                             
-                            <!-- Dashboard Panel - Thin Dark Frame -->
+                            <!-- Dashboard Panel - Browser Mockup -->
                             <div class="dash-panel">
+                                <!-- Browser Chrome -->
+                                <div class="browser-chrome">
+                                    <div class="browser-dots">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                    <div class="browser-url">
+                                        <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                                        <span>app.heelar.com/dashboard</span>
+                                    </div>
+                                </div>
                                 <!-- Dashboard Content -->
                                 <div class="dash-content-wrap">
                                 <!-- Sidebar -->
@@ -9821,7 +10929,7 @@
                                             <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=40&h=40&fit=crop&crop=face" class="dash-user-avatar" alt="">
                                             <div class="dash-user-info">
                                                 <strong>Phoenix Bar</strong>
-                                                <span>olivia@gmail.com</span>
+                                                <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="234c4f4a554a4263444e424a4f0d404c4e">[email&#160;protected]</a></span>
                                             </div>
                                             <div class="dash-page-info">
                                                 <strong>Financial - Courses</strong>
@@ -9988,10 +11096,14 @@
                     </div>
                 </div>
                 
-                <!-- Slide 2: Community of Healers -->
+                <!-- Slide 2: Community of Practitioners -->
                 <div class="practitioners-slide" data-slide="1">
                     <div class="practitioners-slide-inner">
                         <div class="practitioners-text">
+                            <div class="practitioners-label">
+                                <svg width="18" height="18" viewBox="0 0 513 513"><use href="#heelar-star-inverted"/></svg>
+                                For practitioners
+                            </div>
                             <h2 class="practitioners-title">Touch someone's life and make a difference</h2>
                             <p class="practitioners-desc">Share the gift of your healing with others. Join a community of vetted practitioners making real impact.</p>
                             
@@ -10027,212 +11139,157 @@
                     </div>
                 </div>
                 
-                <!-- Slide 3: Powerful Tools -->
+                <!-- Slide 3: Features Grid -->
                 <div class="practitioners-slide" data-slide="2">
-                    <div class="practitioners-slide-inner">
-                        <div class="practitioners-text">
-                            <h2 class="practitioners-title">Powerful tools built for healers</h2>
-                            <p class="practitioners-desc">Everything you need to grow your practice, track your earnings, and connect with clients.</p>
-                            
-                            <!-- Feature Highlights -->
-                            <div class="feature-highlights">
-                                <div class="feature-item">
-                                    <div class="feature-icon">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
-                                        </svg>
-                                    </div>
-                                    <div class="feature-text">
-                                        <strong>Revenue Tracking</strong>
-                                        <span>Monitor earnings in real-time</span>
-                                    </div>
-                                </div>
-                                <div class="feature-item">
-                                    <div class="feature-icon">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                            <rect x="3" y="4" width="18" height="18" rx="2"/>
-                                            <path d="M16 2v4M8 2v4M3 10h18"/>
-                                        </svg>
-                                    </div>
-                                    <div class="feature-text">
-                                        <strong>Smart Scheduling</strong>
-                                        <span>Manage bookings effortlessly</span>
-                                    </div>
-                                </div>
-                                <div class="feature-item">
-                                    <div class="feature-icon">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
-                                            <circle cx="9" cy="7" r="4"/>
-                                            <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
-                                        </svg>
-                                    </div>
-                                    <div class="feature-text">
-                                        <strong>Client Management</strong>
-                                        <span>Build lasting relationships</span>
-                                    </div>
-                                </div>
+                    <div class="features-grid-slide">
+                        <!-- Header -->
+                        <div class="features-grid-header">
+                            <div class="practitioners-label">
+                                <svg width="18" height="18" viewBox="0 0 513 513"><use href="#heelar-star-inverted"/></svg>
+                                Features
                             </div>
-                            
-                            <a href="#" class="practitioners-cta" onclick="openModal('practitioner'); return false;">
-                                Get Started
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                                </svg>
-                            </a>
+                            <h2 class="practitioners-title">Creating Change Faster</h2>
+                            <p class="practitioners-desc">Powerful marketing and financial management tools created by Healers for Healers.</p>
                         </div>
                         
-                        <!-- Right: Financials Phone -->
-                        <div class="tools-phone-container">
-                            <div class="tools-phone">
-                                <div class="tools-phone-frame">
-                                    <div class="tools-phone-screen">
-                                        <div class="tools-phone-notch"></div>
-                                        
-                                        <!-- Status Bar -->
-                                        <div class="tools-status-bar">
-                                            <span>19:27</span>
-                                            <div class="tools-status-icons">
-                                                <svg width="16" height="10" viewBox="0 0 16 10"><path d="M1 3h2v7H1zM5 2h2v8H5zM9 1h2v9H9zM13 0h2v10h-2z" fill="currentColor"/></svg>
-                                                <svg width="14" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
-                                                <svg width="22" height="10" viewBox="0 0 22 10"><rect x="0" y="1" width="18" height="8" rx="2" stroke="currentColor" fill="none" stroke-width="1"/><rect x="2" y="3" width="12" height="4" fill="currentColor" rx="1"/><rect x="19" y="3" width="2" height="4" rx="0.5" fill="currentColor"/></svg>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Nav Header -->
-                                        <div class="tools-nav-header">
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M15 18l-6-6 6-6"/></svg>
-                                            <span>Revenue</span>
-                                            <div class="tools-nav-right">
-                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13"/></svg>
-                                                <div class="tools-help-icon">?</div>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Revenue Stats -->
-                                        <div class="tools-stats-row">
-                                            <div class="tools-stat-box">
-                                                <div class="tools-stat-value">$256</div>
-                                                <div class="tools-stat-label">Today</div>
-                                            </div>
-                                            <div class="tools-stat-box highlight">
-                                                <div class="tools-stat-arrow">↗</div>
-                                                <div class="tools-stat-value">$256</div>
-                                                <div class="tools-stat-label">This Week</div>
-                                            </div>
-                                            <div class="tools-stat-box">
-                                                <div class="tools-stat-arrow">↗</div>
-                                                <div class="tools-stat-value">$1,256</div>
-                                                <div class="tools-stat-label">This Month</div>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Future Bookings -->
-                                        <div class="tools-bookings-row">
-                                            <span>Future Bookings</span>
-                                            <span class="tools-bookings-count">👥 123</span>
-                                            <span class="tools-bookings-value">$12,234</span>
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M9 18l6-6-6-6"/></svg>
-                                        </div>
-                                        
-                                        <!-- Time Filters -->
-                                        <div class="tools-time-filters">
-                                            <span class="active">All</span>
-                                            <span>Week</span>
-                                            <span>Month</span>
-                                            <span>Year</span>
-                                            <span>Date</span>
-                                        </div>
-                                        
-                                        <!-- Category Pills -->
-                                        <div class="tools-category-pills">
-                                            <div class="tools-pill active">
-                                                <span>All</span>
-                                                <span>$1,563</span>
-                                            </div>
-                                            <div class="tools-pill">
-                                                <span>Healing</span>
-                                                <span>$1,563</span>
-                                            </div>
-                                            <div class="tools-pill">
-                                                <span>Courses</span>
-                                                <span>$1,563</span>
-                                            </div>
-                                            <div class="tools-pill">
-                                                <span>Workshops</span>
-                                                <span>$1,563</span>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Bar Chart -->
-                                        <div class="tools-chart">
-                                            <div class="tools-chart-y">
-                                                <span>$280</span>
-                                                <span>$260</span>
-                                                <span>$240</span>
-                                                <span>$220</span>
-                                                <span>$200</span>
-                                            </div>
-                                            <div class="tools-chart-bars">
-                                                <div class="tools-bar" style="height: 35%"></div>
-                                                <div class="tools-bar" style="height: 25%"></div>
-                                                <div class="tools-bar" style="height: 20%"></div>
-                                                <div class="tools-bar highlight" style="height: 55%">
-                                                    <div class="tools-bar-tooltip">$244.21</div>
-                                                </div>
-                                                <div class="tools-bar" style="height: 85%"></div>
-                                                <div class="tools-bar" style="height: 70%"></div>
-                                                <div class="tools-bar" style="height: 75%"></div>
-                                            </div>
-                                            <div class="tools-chart-x">
-                                                <span>Mo</span>
-                                                <span>Tu</span>
-                                                <span>We</span>
-                                                <span>Th</span>
-                                                <span>Fr</span>
-                                                <span>Sa</span>
-                                                <span>Su</span>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Sessions Tabs -->
-                                        <div class="tools-tabs">
-                                            <div class="tools-tab active">Sessions</div>
-                                            <div class="tools-tab">Clients</div>
-                                        </div>
-                                        
-                                        <!-- Session List -->
-                                        <div class="tools-session-header">
-                                            <span>Healing Sessions - May 22</span>
-                                            <span class="tools-see-all">See All</span>
-                                        </div>
-                                        
-                                        <div class="tools-session-list">
-                                            <div class="tools-session-row">
-                                                <span>Crystal Healing</span>
-                                                <span>May 22</span>
-                                                <span>👥 12</span>
-                                                <span>$1,234</span>
-                                            </div>
-                                            <div class="tools-session-row">
-                                                <span>Soul Healing</span>
-                                                <span>May 22</span>
-                                                <span>👥 12</span>
-                                                <span>$1,234</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                        <!-- Features Grid -->
+                        <div class="features-grid">
+                            <!-- Row 1 -->
+                            <div class="feature-card">
+                                <div class="feature-card-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                                 </div>
+                                <h3>Exchange energies</h3>
+                                <p>We create a safe space where one can be heard and hear themselves, and in doing so learn to let go.</p>
+                            </div>
+                            
+                            <div class="feature-card">
+                                <div class="feature-card-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                                </div>
+                                <h3>Learn to let go</h3>
+                                <p>We are a guiding force for those that want to release the pain and create new possibilities in their lives.</p>
+                            </div>
+                            
+                            <div class="feature-card">
+                                <div class="feature-card-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M9 16l2 2 4-4"/></svg>
+                                </div>
+                                <h3>Creating change</h3>
+                                <p>Healing begins by acknowledging the pain, seeking help through healers and discovering the truth.</p>
+                            </div>
+                            
+                            <!-- Row 2 -->
+                            <div class="feature-card">
+                                <div class="feature-card-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                </div>
+                                <h3>Discovering you</h3>
+                                <p>We make healing a continuous journey, where emotions are expressed transparently so as to find what you truly desire.</p>
+                            </div>
+                            
+                            <div class="feature-card">
+                                <div class="feature-card-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                </div>
+                                <h3>Building relationships</h3>
+                                <p>Connect with practitioners who understand your journey and build meaningful, lasting bonds through shared healing experiences.</p>
+                            </div>
+                            
+                            <div class="feature-card">
+                                <div class="feature-card-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                                </div>
+                                <h3>Making a difference</h3>
+                                <p>Every session creates ripples of positive change. Join a community dedicated to transforming lives, one healing at a time.</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                </div><!-- End slides wrapper -->
                 
-                <!-- Progress Dots -->
+                <!-- Progress Dots (Desktop) -->
                 <div class="practitioners-dots">
                     <button class="practitioners-dot active" data-slide="0"></button>
                     <button class="practitioners-dot" data-slide="1"></button>
                     <button class="practitioners-dot" data-slide="2"></button>
+                </div>
+            </div>
+            
+            <!-- Mobile Swipe Dots -->
+            <div class="practitioners-mobile-dots">
+                <button class="practitioners-mobile-dot active" data-slide="0"></button>
+                <button class="practitioners-mobile-dot" data-slide="1"></button>
+                <button class="practitioners-mobile-dot" data-slide="2"></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         MEET OUR HEALERS SECTION - Gated Video Offer
+         ========================================== -->
+    <section class="aaron-section" id="healers-intro">
+        <div class="container">
+            <div class="aaron-wrapper">
+                <div class="aaron-card reveal-scale">
+                    <!-- Header at Top -->
+                    <div class="aaron-header">
+                        <div class="aaron-label">
+                            <svg width="18" height="18" viewBox="0 0 513 513"><use href="#heelar-star"/></svg>
+                            Our community
+                        </div>
+                        <h2 class="aaron-heading">Meet our healers</h2>
+                        <p class="aaron-subheading">Vetted practitioners from around the world, each bringing their unique journey and expertise to help you heal</p>
+                    </div>
+                    
+                    <!-- Main Content: Profile + Gated Video -->
+                    <div class="aaron-profile-layout">
+                    <!-- Left: Profile -->
+                    <div class="aaron-profile-card">
+                        <div class="aaron-avatar">
+                            <span>Aaron's Photo</span>
+                        </div>
+                        <h3 class="aaron-name">Aaron Quinn</h3>
+                        <p class="aaron-role">Yoga & Meditation Teacher</p>
+                        <p class="aaron-bio">One of our founding healers, Aaron traded Dublin's corporate world for the mat. After two years studying with masters in Rishikesh, he now helps others find the same stillness he discovered.</p>
+                        <div class="aaron-tags">
+                            <span>Ashtanga</span>
+                            <span>Meditation</span>
+                            <span>Breathwork</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Right: Gated Video -->
+                    <div class="aaron-video-container">
+                        <div class="aaron-video-player">
+                            <div class="aaron-video-frame">
+                                <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&h=450&fit=crop" alt="Yoga practice at sunset">
+                                <div class="aaron-video-overlay"></div>
+                                
+                                <!-- Lock/Gate Overlay -->
+                                <div class="aaron-gate-overlay">
+                                    <div class="aaron-gate-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                            <path d="M7 11V7a5 5 0 0110 0v4"/>
+                                        </svg>
+                                    </div>
+                                    <h4 class="aaron-gate-title">A 20-Minute Grounding Practice</h4>
+                                    <p class="aaron-gate-desc">Join the waitlist and get free access to this exclusive guided session from one of our healers.</p>
+                                    
+                                    <form class="aaron-signup-form" id="aaronSignupForm">
+                                        <input type="email" placeholder="Enter your email" required class="aaron-email-input">
+                                        <button type="submit" class="aaron-submit-btn">
+                                            Unlock Free Video
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -10364,7 +11421,7 @@
     <!-- ==========================================
          JAVASCRIPT
          ========================================== -->
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // =============================================
         // PROFESSIONAL WEBSITE EFFECTS
         // =============================================
@@ -10592,16 +11649,18 @@
                 if (index === currentIndex) return;
                 currentIndex = index;
                 
+                // Switch phone scenes
                 scenes.forEach(function(scene, i) {
                     scene.classList.toggle('active', i === index);
                 });
                 
+                // Update dots
                 dots.forEach(function(dot, i) {
                     dot.classList.toggle('active', i === index);
                 });
             }
             
-            // Intersection Observer for text sections
+            // Intersection Observer for text sections - trigger at center of viewport
             var observer = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
@@ -10611,7 +11670,7 @@
                 });
             }, {
                 threshold: 0.5,
-                rootMargin: '-20% 0px -20% 0px'
+                rootMargin: '-25% 0px -25% 0px'
             });
             
             textSections.forEach(function(section) {
@@ -10629,51 +11688,167 @@
             });
         })();
         
-        // Practitioners Section Sticky Scroll
+        // Practitioners Section Sticky Scroll + Mobile Swipe Carousel
         (function() {
             const section = document.querySelector('.practitioners-section');
             const container = document.querySelector('.practitioners-sticky-container');
+            const slidesWrapper = document.querySelector('.practitioners-slides-wrapper');
             const slides = document.querySelectorAll('.practitioners-slide');
             const dots = document.querySelectorAll('.practitioners-dot');
+            const mobileDots = document.querySelectorAll('.practitioners-mobile-dot');
             
             if (!section || !container || slides.length === 0) return;
             
-            // For now with single slide, just ensure it's visible
-            // This will be expanded when more slides are added
+            let currentSlide = 0;
+            let touchStartX = 0;
+            let touchEndX = 0;
+            let isDragging = false;
             
-            function updateSlide(index) {
+            function isMobile() {
+                return window.innerWidth <= 768;
+            }
+            
+            function updateSlide(index, animate = true) {
+                currentSlide = index;
+                
+                // Desktop: toggle active class - CSS handles opacity transition
                 slides.forEach((slide, i) => {
                     slide.classList.toggle('active', i === index);
                 });
+                
+                // Desktop dots
                 dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+                
+                // Mobile: transform the wrapper
+                if (isMobile() && slidesWrapper) {
+                    slidesWrapper.style.transition = animate ? 'transform 0.3s ease-out' : 'none';
+                    slidesWrapper.style.transform = `translateX(-${index * 100}%)`;
+                }
+                
+                // Mobile dots
+                mobileDots.forEach((dot, i) => {
                     dot.classList.toggle('active', i === index);
                 });
             }
             
-            // Dot click handlers
+            // Desktop dot click handlers
             dots.forEach((dot, index) => {
                 dot.addEventListener('click', () => {
                     updateSlide(index);
                 });
             });
             
-            // Scroll-based slide switching (for when more slides are added)
+            // Mobile dot click handlers
+            mobileDots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    updateSlide(index);
+                });
+            });
+            
+            // Touch/Swipe handling for mobile
+            if (slidesWrapper) {
+                // Initialize on mobile
+                if (isMobile()) {
+                    updateSlide(0, false);
+                }
+                
+                slidesWrapper.addEventListener('touchstart', (e) => {
+                    if (!isMobile()) return;
+                    touchStartX = e.changedTouches[0].screenX;
+                    touchEndX = touchStartX;
+                    isDragging = true;
+                }, { passive: true });
+                
+                slidesWrapper.addEventListener('touchmove', (e) => {
+                    if (!isMobile() || !isDragging) return;
+                    touchEndX = e.changedTouches[0].screenX;
+                    
+                    // Add drag feedback
+                    const diff = touchStartX - touchEndX;
+                    const baseOffset = currentSlide * 100;
+                    const dragOffset = (diff / window.innerWidth) * 100;
+                    const maxDrag = 20; // Limit drag at edges
+                    
+                    let newOffset = baseOffset + dragOffset;
+                    if (currentSlide === 0 && dragOffset < 0) {
+                        newOffset = baseOffset + Math.max(dragOffset, -maxDrag);
+                    }
+                    if (currentSlide === slides.length - 1 && dragOffset > 0) {
+                        newOffset = baseOffset + Math.min(dragOffset, maxDrag);
+                    }
+                    
+                    slidesWrapper.style.transition = 'none';
+                    slidesWrapper.style.transform = `translateX(-${newOffset}%)`;
+                }, { passive: true });
+                
+                slidesWrapper.addEventListener('touchend', (e) => {
+                    if (!isMobile() || !isDragging) return;
+                    touchEndX = e.changedTouches[0].screenX;
+                    isDragging = false;
+                    handleSwipe();
+                }, { passive: true });
+                
+                slidesWrapper.addEventListener('touchcancel', () => {
+                    if (!isMobile() || !isDragging) return;
+                    isDragging = false;
+                    updateSlide(currentSlide);
+                }, { passive: true });
+            }
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = touchStartX - touchEndX;
+                
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0 && currentSlide < slides.length - 1) {
+                        // Swipe left - next slide
+                        updateSlide(currentSlide + 1);
+                    } else if (diff < 0 && currentSlide > 0) {
+                        // Swipe right - previous slide
+                        updateSlide(currentSlide - 1);
+                    } else {
+                        // Bounce back
+                        updateSlide(currentSlide);
+                    }
+                } else {
+                    // Not enough swipe, snap back
+                    updateSlide(currentSlide);
+                }
+            }
+            
+            // Desktop: Scroll-based slide switching - simple like about section
             window.addEventListener('scroll', () => {
-                if (window.innerWidth <= 480) return; // Disable on mobile
+                if (isMobile()) return;
                 
                 const rect = section.getBoundingClientRect();
                 const sectionHeight = container.offsetHeight;
                 const viewportHeight = window.innerHeight;
                 
-                // Calculate scroll progress within the section
+                // Calculate scroll progress within the section (0 to 1)
                 const scrollProgress = -rect.top / (sectionHeight - viewportHeight);
                 const clampedProgress = Math.max(0, Math.min(1, scrollProgress));
                 
-                // Determine which slide to show based on progress
-                const slideIndex = Math.floor(clampedProgress * slides.length);
-                const safeIndex = Math.min(slideIndex, slides.length - 1);
+                // Simple slide index calculation
+                const slideIndex = Math.min(
+                    Math.floor(clampedProgress * slides.length),
+                    slides.length - 1
+                );
                 
-                updateSlide(safeIndex);
+                if (slideIndex !== currentSlide) {
+                    updateSlide(slideIndex);
+                }
+            });
+            
+            // Handle resize - reset position
+            window.addEventListener('resize', () => {
+                if (!isMobile() && slidesWrapper) {
+                    slidesWrapper.style.transform = '';
+                    slidesWrapper.style.transition = '';
+                } else if (isMobile()) {
+                    updateSlide(currentSlide, false);
+                }
             });
         })();
         
@@ -10764,11 +11939,6 @@
             if (e.key === 'Escape') {
                 closeModal();
             }
-        });
-        
-        // Prevent modal close when clicking inside modal
-        document.getElementById('modal').addEventListener('click', (e) => {
-            e.stopPropagation();
         });
     </script>
 </body>
